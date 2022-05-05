@@ -18,7 +18,7 @@ const App = ({match}) => (
       <Route path={`${match.url}custom-views`} component={CustomViews}/>
       <Route path={`${match.url}extensions`} component={Extensions}/>
       <Route path={`${match.url}extra-components`} component={ExtraComponents}/>
-      <Route path={`${match.url}in-built-apps`} component={InBuiltApps}/>
+      <Route path={`${match.url}dashboard`} component={InBuiltApps}/>
       <Route path={`${match.url}social-apps`} component={SocialApps}/>
       <Route path={`${match.url}documents`} component={Documents}/>
     </Switch>

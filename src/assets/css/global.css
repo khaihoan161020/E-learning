@@ -1,0 +1,21 @@
+.ant-row {
+    margin: 0
+
+}
+.ant-form-horizontal .ant-row {
+    margin-left: 0;
+    margin-right: -15px;
+}
+/* .ant-row {
+    -ms-flex-direction: row !important;
+    flex-direction: row !important;
+} */
+
+.ant-table-thead>tr>th {
+    padding: 6px 16px;
+    background: #003366;
+    color: #fff
+}
+.ant-table-tbody>tr>td {
+    padding: 10px 16px;
+}

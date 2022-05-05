@@ -96,6 +96,12 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
 
             <MenuItemGroup key="in-built-apps" className="gx-menu-group"
                            title={<IntlMessages id="sidebar.inBuiltApp"/>}>
+              <Menu.Item key="dashboard/user">
+                <Link to="/dashboard/user">
+                  <i className="icon icon-avatar -flex-column-reverse"/>
+                  <span><IntlMessages id="sidebar.user"/></span>
+                </Link>
+              </Menu.Item>
               <Menu.Item key="in-built-apps/mail">
                 <Link to="/in-built-apps/mail"><i className="icon icon-email"/><span><IntlMessages
                   id="sidebar.mailApp"/></span></Link>

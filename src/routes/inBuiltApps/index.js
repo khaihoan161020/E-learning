@@ -13,6 +13,7 @@ const InBuiltApps = ({match}) => (
     <Route path={`${match.url}/todo`} component={asyncComponent(() => import('./Todo'))}/>
     <Route path={`${match.url}/notes`} component={asyncComponent(() => import('./Notes'))}/>
     <Route path={`${match.url}/firebase-crud`} component={asyncComponent(() => import('./FirebaseCRUD'))}/>
+    <Route path={`${match.url}/user`} component={asyncComponent(() => import('./User'))}/>
   </Switch>
 );
 
