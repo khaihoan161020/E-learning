@@ -21,6 +21,15 @@
     background: #003366;
     color: #fff
 }
+.ant-form-item-has-feedback .ant-input-affix-wrapper .ant-input-suffix {
+    padding-right: 0px;
+}
+.ant-input-suffix .ant-form-item-feedback-icon-success {
+    color: #52C41A !important;
+}
 .ant-table-tbody>tr>td {
     padding: 10px 16px;
+}
+.ant-form-item-explain-error {
+    color: #f5222d;
 }
