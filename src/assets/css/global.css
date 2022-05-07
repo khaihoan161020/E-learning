@@ -6,6 +6,11 @@
     margin-left: 0;
     margin-right: -15px;
 }
+.ant-form-item {
+    box-sizing: border-box;
+    margin: 0 0 24px;
+
+}
 /* .ant-row {
     -ms-flex-direction: row !important;
     flex-direction: row !important;
