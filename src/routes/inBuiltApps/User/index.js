@@ -22,7 +22,7 @@ const User = () => {
                 <Features/>
             </Row>
             <Row>
-                <UserTable params={params}/>
+                <UserTable params={params} setParams={setParams}/>
             </Row>
         </Layout>
     )

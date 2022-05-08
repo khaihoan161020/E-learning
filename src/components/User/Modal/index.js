@@ -1,27 +1,83 @@
 
-import { Modal, Button, Form, Input, DatePicker } from 'antd';
+import { Modal, Button, Form, Input, DatePicker, Radio, InputNumber  } from 'antd';
 import IntlMessages from "../../../util/IntlMessages";
 import { FooterModal } from "./Modal.style"
 import { useSelector } from 'react-redux';
 import userAction from '../../../appRedux/User/actions'
 import { useDispatch } from 'react-redux';
-import { DateFormat } from '../../../util/dateFormat'
+import { DateFormat, DateServerFormat } from '../../../util/dateFormat'
+import moment from 'moment';
+import { useEffect } from 'react';
 const UserModal = ({}) => {
     const [form] = Form.useForm();
     const visibleModal = useSelector((state) => state.user.visibleModal)
+	const success = useSelector((state) => state.user.success);
+	const user = useSelector((state) => state.user.user)
     const dispatch = useDispatch();
-
+    const userReq = {
+      username: '',
+      password: '',
+      dob: '',
+      email: '',
+	  score: null,
+	  isDeleted: null
+    }
     const layout = {
         labelCol: { span: 8 },
         wrapperCol: { span: 16 },
       };
     const onSubmitUser = async () => {
         const values = await form.validateFields();
-        console.log(values)
+		if(user)
+			userReq.id = user.id
+        if (values.username)
+			userReq.username =  values.username
+
+        if (values.password)
+			userReq.password = values.password
+
+		if (values.dob)
+			userReq.dob = moment(values.dob).format(DateServerFormat)
+		else userReq.dob = null
+
+		if (values.email)
+			userReq.email = values.email
+		else userReq.email = null
+	
+		if(values.score) 
+			userReq.score = values.score
+
+		if(values.isDeleted) 
+			userReq.isDeleted = values.isDeleted
+
+		if (user) { // edit => update
+			dispatch(userAction.editUser(userReq))
+		}
+		else 
+			dispatch(userAction.addUser(userReq))
     }
+	useEffect(()=>{
+		if (user) {
+			form.setFieldsValue({
+				username: user.username,
+				dob: user.dob ? moment(user.dob) : null,
+				email: user.email,
+				score: user.score,
+				isDeleted: user.isDeleted
+			})
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[user])
+
+	useEffect(()=>{
+		if(success) {
+			form.resetFields();
+			dispatch(userAction.toggleModal())
+		}
+	}, [success])
     return (
         <Modal 
-            title={<IntlMessages id="modal.title.newUser"/>}
+            title={user ? <IntlMessages id="modal.title.editUser"/> : <IntlMessages id="modal.title.newUser"/>}
             visible={visibleModal}
             footer={null}    
             closable={false}
@@ -31,12 +87,12 @@ const UserModal = ({}) => {
                     rules={[{ required: true },
                             {pattern: /^\S*$/, 
                             message: <IntlMessages id="regex.notAllowSpace" />}]}>
-                    <Input autoComplete='off' autoCorrect='true' />
+                    <Input disabled={user} autoComplete='off' autoCorrect='true' />
                 </Form.Item>
-                <Form.Item name="password" label={<IntlMessages id="label.password" />} hasFeedback rules={[ { required: true } ]}>
+                {!user && <Form.Item name="password" label={<IntlMessages id="label.password" />} hasFeedback rules={[ { required: true } ]}>
                     <Input.Password  autoComplete='new-password' />
-                </Form.Item>
-                <Form.Item 
+                </Form.Item> }
+                {!user && <Form.Item 
                     name="rePassword" 
                     label={<IntlMessages id="label.rePassword" />} 
                     dependencies={['password']}
@@ -56,7 +112,8 @@ const UserModal = ({}) => {
                         }),
                       ]}>
                     <Input.Password />
-                </Form.Item>
+                </Form.Item> }
+				
                 <Form.Item name="dob" label={<IntlMessages id="label.dob" />} >
                     <DatePicker style={{width: '100%'}} format={DateFormat} />
                 </Form.Item>
@@ -70,6 +127,15 @@ const UserModal = ({}) => {
                     >
                     <Input  />
                 </Form.Item>
+				{user && <Form.Item name="score" label={<IntlMessages id="label.score" />} >
+						<InputNumber style={{width: '100%'}} />
+                </Form.Item>}
+				{user && <Form.Item name="isDeleted" label={<IntlMessages id="label.status" />} >
+					<Radio.Group >
+						<Radio value={false}><IntlMessages id="radio.active" /></Radio>
+						<Radio value={true}><IntlMessages id="radio.disable" /></Radio>
+					</Radio.Group>
+                </Form.Item>}
                 <FooterModal >
                     <Button type='primary' htmlType="submit">
                         <IntlMessages id="button.save" />
