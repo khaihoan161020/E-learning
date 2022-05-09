@@ -1,15 +1,14 @@
 import axios from "axios";
 export const callAPI = async (url, method, payload) => {
   let resp = null;
-  // chua login tam thoi hardcode
- 	const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzczMTljNDFmZjUxZTQzNDllYThkMyIsImlhdCI6MTY1MTk3ODkwNX0.RCVnNlkEtxuVh9xiGGq5U1qNnVK_f36-025G0KyVXm4";
-	const headers = {
-		"Access-Control-Allow-Origin": `*`,
-		"Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
-		"Access-Control-Allow-Headers": "X-Requested-With,content-type",
-		"Content-Type": "application/json",
-		Authorization: `Bearer ${token}`,
-	};
+
+  const headers = {
+    "Access-Control-Allow-Origin": `*`,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+    "Access-Control-Allow-Headers": "X-Requested-With,content-type",
+    "Content-Type": "application/json",
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzdkY2ZmODRlMWRmNDcyZTg4YjAzZCIsImlhdCI6MTY1MjAyMjg1NX0.eOGZ-45mfKvAh2LctF9SKej8jWZ4SWSDSbyIIqeUGPE`,
+  };
   	resp = await axios({
 		method: method,
 		url: `${process.env.REACT_APP_API_DOMAIN}${url}`,
