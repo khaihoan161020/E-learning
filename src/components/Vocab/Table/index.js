@@ -40,6 +40,12 @@ const dataSource = [
         type: '(n)',
         mean: 'Test',
     },
+    {
+        key: 7,
+        name: 'Test',
+        type: '(n)',
+        mean: 'Test',
+    },
 ];
 
 const columns = [
