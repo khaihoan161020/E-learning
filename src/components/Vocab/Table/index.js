@@ -34,6 +34,12 @@ const dataSource = [
         type: '(n/v)',
         mean: 'Phí/tính phí',
     },
+    {
+        key: 6,
+        name: 'Test',
+        type: '(n)',
+        mean: 'Test',
+    },
 ];
 
 const columns = [
