@@ -80,11 +80,38 @@ function* editUser({payload}) {
         }
     
 }
+function* deleteUser({payload}) {
+    try {
+        let res = yield callAPI(
+            `user/${payload}`,
+            "DELETE",
+            null
+        );
+        
+        if (res && res.status === 1) {
+            console.log('res', res)
+            notification("success", res.message , "");
+            yield put({ type: userActions.DELETE_USER_SUCCESS });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
+        
+    catch (error) {
+            notification("error", error.message, "");
+            yield put({
+                type: userActions.DELETE_USER_FAILURE,
+            });
+        }
+    
+}
 
 export default function* userSaga() {
     yield all([
         fork(fetchUserLoad),
         takeLatest(userActions.ADD_DATA_USER, addUseDashboard),
-        takeEvery(userActions.EDIT_USER, editUser)
+        takeEvery(userActions.EDIT_USER, editUser),
+        takeEvery(userActions.DELETE_USER, deleteUser)
     ]);
 }

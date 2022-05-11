@@ -1,14 +1,12 @@
 import axios from "axios";
 export const callAPI = async (url, method, payload) => {
   let resp = null;
-
-  const headers = {
-    "Access-Control-Allow-Origin": `*`,
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
-    "Access-Control-Allow-Headers": "X-Requested-With,content-type",
-    "Content-Type": "application/json",
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzdkY2ZmODRlMWRmNDcyZTg4YjAzZCIsImlhdCI6MTY1MjAyMjg1NX0.eOGZ-45mfKvAh2LctF9SKej8jWZ4SWSDSbyIIqeUGPE`,
-  };
+  // chua login tam thoi hardcode
+ 	const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzczMTljNDFmZjUxZTQzNDllYThkMyIsImlhdCI6MTY1MjI4MDUzN30.c_p59uChIpWG5fajPSkhqVKCfjDvWKZAxXvry8sNAPo";
+	const headers = {
+		"Access-Control-Allow-Origin": "*",
+		Authorization: `Bearer ${token}`,
+	};
   	resp = await axios({
 		method: method,
 		url: `${process.env.REACT_APP_API_DOMAIN}${url}`,

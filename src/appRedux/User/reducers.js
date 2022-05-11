@@ -70,6 +70,24 @@ export default function vendorsReducer(state = initState, action) {
                 loading: false,
                 success: false,
             }
+        case userActions.DELETE_USER:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            }
+        case userActions.DELETE_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            }
+        case userActions.DELETE_USER_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+            }
         default: 
             return state;
     }

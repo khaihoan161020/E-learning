@@ -14,6 +14,9 @@ const userActions = {
     EDIT_USER_SUCCESS: DOCUMENT + "EDIT_USER_SUCCESS",
     EDIT_USER_FAILURE: DOCUMENT + "EDIT_USER_FAILURE",
 
+    DELETE_USER: DOCUMENT + "DELETE_USER",
+    DELETE_USER_SUCCESS: DOCUMENT + "DELETE_USER_SUCCESS",
+    DELETE_USER_FAILURE: DOCUMENT + "DELETE_USER_FAILURE",
     toggleModal: (data = null) => {
         return ({
             type: userActions.TOGGLE_MODAL,
@@ -35,6 +38,12 @@ const userActions = {
     editUser: (data) => {
         return ({
             type: userActions.EDIT_USER,
+            payload: data
+        })
+    },
+    deleteUserbyID: (data) => {
+        return ({
+            type: userActions.DELETE_USER,
             payload: data
         })
     }
