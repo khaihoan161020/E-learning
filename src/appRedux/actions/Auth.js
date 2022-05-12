@@ -14,8 +14,7 @@ import {
   SIGNIN_TWITTER_USER_SUCCESS,
   SIGNIN_USER,
   SIGNIN_USER_SUCCESS,
-  SIGNOUT_USER,
-  SIGNOUT_USER_SUCCESS,
+
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS
 } from "constants/ActionTypes";
@@ -32,11 +31,7 @@ export const userSignIn = (user) => {
     payload: user
   };
 };
-export const userSignOut = () => {
-  return {
-    type: SIGNOUT_USER
-  };
-};
+
 export const userSignUpSuccess = (authUser) => {
   return {
     type: SIGNUP_USER_SUCCESS,
@@ -50,11 +45,7 @@ export const userSignInSuccess = (authUser) => {
     payload: authUser
   }
 };
-export const userSignOutSuccess = () => {
-  return {
-    type: SIGNOUT_USER_SUCCESS,
-  }
-};
+
 
 export const showAuthMessage = (message) => {
   return {

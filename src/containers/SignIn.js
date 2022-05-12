@@ -3,35 +3,18 @@ import {Button, Checkbox, Form, Input, message} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 
-import {
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGithubSignIn,
-  userGoogleSignIn,
-  userSignIn,
-  userTwitterSignIn
-} from "../appRedux/actions";
-
 import IntlMessages from "util/IntlMessages";
 import CircularProgress from "../components/CircularProgress";
-import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
-import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
-import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
-import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
 
+import authAction from "../appRedux/Auth/actions";
 const SignIn = () => {
 
   const dispatch = useDispatch();
-  const {loader, alertMessage, showMessage, authUser} = useSelector(({auth}) => auth);
+  const {loader, alertMessage, showMessage, authUser, success} = useSelector(({auth}) => auth);
+
   const history = useHistory();
 
   useEffect(() => {
-    if (showMessage) {
-      setTimeout(() => {
-        dispatch(hideMessage());
-      }, 100);
-    }
     if (authUser !== null) {
       history.push('/');
     }
@@ -41,8 +24,8 @@ const SignIn = () => {
   };
 
   const onFinish = values => {
-    dispatch(showAuthLoader());
-    dispatch(userSignIn(values));
+    
+    dispatch(authAction.loginUser(values));
   };
 
   return (
@@ -72,14 +55,12 @@ const SignIn = () => {
               className="gx-signin-form gx-form-row0">
 
               <Form.Item
-                initialValue="demo@example.com"
-                rules={[{required: true, message: 'The input is not valid E-mail!'}]} name="email">
-                <Input placeholder="Email"/>
+                rules={[{required: true, message: 'The input is not valid E-mail!'}]} name="username">
+                <Input placeholder="Username"/>
               </Form.Item>
               <Form.Item
-                initialValue="demo#123"
                 rules={[{required: true, message: 'Please input your Password!'}]} name="password">
-                <Input type="password" placeholder="Password"/>
+                <Input type="password" placeholder="Password" autoComplete="new-password" autoCorrect="false"/>
               </Form.Item>
               <Form.Item>
                 <Checkbox><IntlMessages id="appModule.iAccept"/></Checkbox>
@@ -93,35 +74,7 @@ const SignIn = () => {
                 <span><IntlMessages id="app.userAuth.or"/></span> <Link to="/signup"><IntlMessages
                 id="app.userAuth.signUp"/></Link>
               </Form.Item>
-              <div className="gx-flex-row gx-justify-content-between">
-                <span>or connect with</span>
-                <ul className="gx-social-link">
-                  <li>
-                    <GoogleOutlined onClick={() => {
-                      dispatch(showAuthLoader());
-                      dispatch(userGoogleSignIn());
-                    }}/>
-                  </li>
-                  <li>
-                    <FacebookOutlined onClick={() => {
-                      dispatch(showAuthLoader());
-                      dispatch(userFacebookSignIn());
-                    }}/>
-                  </li>
-                  <li>
-                    <GithubOutlined onClick={() => {
-                      dispatch(showAuthLoader());
-                      dispatch(userGithubSignIn());
-                    }}/>
-                  </li>
-                  <li>
-                    <TwitterOutlined onClick={() => {
-                      dispatch(showAuthLoader());
-                      dispatch(userTwitterSignIn());
-                    }}/>
-                  </li>
-                </ul>
-              </div>
+              
               <span
                 className="gx-text-light gx-fs-sm"> demo user email: 'demo@example.com' and password: 'demo#123'</span>
             </Form>

@@ -4,54 +4,76 @@ import {
     ON_HIDE_LOADER,
     ON_SHOW_LOADER,
     SHOW_MESSAGE,
-    SIGNIN_FACEBOOK_USER_SUCCESS,
-    SIGNIN_GITHUB_USER_SUCCESS,
-    SIGNIN_GOOGLE_USER_SUCCESS,
-    SIGNIN_TWITTER_USER_SUCCESS,
-    SIGNIN_USER_SUCCESS,
-    SIGNOUT_USER_SUCCESS,
-    SIGNUP_USER_SUCCESS
   } from "../../constants/ActionTypes";
-  
+import authAction from "./actions";
   const INIT_STATE = {
     loader: false,
     alertMessage: '',
     showMessage: false,
     initURL: '',
-    authUser: localStorage.getItem('user_id'),
+    authUser: null,
+    loading: false,
+    userProfile: null,
+    success: false
   };
   
   
   const AuthReducer = (state = INIT_STATE, action) => {
     switch (action.type) {
-      case SIGNUP_USER_SUCCESS: {
+      case authAction.LOGIN_USER: {
+        return {
+          ...state,
+          loader: true,
+        }
+      }
+      case authAction.LOGIN_USER_SUCCESS: {
         return {
           ...state,
           loader: false,
-          authUser: action.payload
+          userProfile: action.payload,
+          authUser: action.payload.token,
+          initURL: '/',
+          success: true,
         }
       }
-      case SIGNIN_USER_SUCCESS: {
+      case authAction.LOGIN_USER_FAILURE: {
         return {
           ...state,
           loader: false,
-          authUser: action.payload
+          success: false
         }
       }
+      case authAction.LOGOUT_USER: {
+        localStorage.setItem("token_id",  null);
+        return {
+          ...state,
+          initURL: '/',
+          userProfile: null,
+          authUser: null
+        }
+
+      }
+      // case SIGNIN_USER_SUCCESS: {
+      //   return {
+      //     ...state,
+      //     loader: false,
+      //     authUser: action.payload
+      //   }
+      // }
       case INIT_URL: {
         return {
           ...state,
           initURL: action.payload
         }
       }
-      case SIGNOUT_USER_SUCCESS: {
-        return {
-          ...state,
-          authUser: null,
-          initURL: '/',
-          loader: false
-        }
-      }
+      // case SIGNOUT_USER_SUCCESS: {
+      //   return {
+      //     ...state,
+      //     authUser: null,
+      //     initURL: '/',
+      //     loader: false
+      //   }
+      // }
   
       case SHOW_MESSAGE: {
         return {
@@ -70,34 +92,6 @@ import {
         }
       }
   
-      case SIGNIN_GOOGLE_USER_SUCCESS: {
-        return {
-          ...state,
-          loader: false,
-          authUser: action.payload
-        }
-      }
-      case SIGNIN_FACEBOOK_USER_SUCCESS: {
-        return {
-          ...state,
-          loader: false,
-          authUser: action.payload
-        }
-      }
-      case SIGNIN_TWITTER_USER_SUCCESS: {
-        return {
-          ...state,
-          loader: false,
-          authUser: action.payload
-        }
-      }
-      case SIGNIN_GITHUB_USER_SUCCESS: {
-        return {
-          ...state,
-          loader: false,
-          authUser: action.payload
-        }
-      }
       case ON_SHOW_LOADER: {
         return {
           ...state,

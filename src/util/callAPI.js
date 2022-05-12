@@ -2,7 +2,7 @@ import axios from "axios";
 export const callAPI = async (url, method, payload) => {
   let resp = null;
   // chua login tam thoi hardcode
- 	const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzczMTljNDFmZjUxZTQzNDllYThkMyIsImlhdCI6MTY1MjI4MDUzN30.c_p59uChIpWG5fajPSkhqVKCfjDvWKZAxXvry8sNAPo";
+ 	const token = localStorage.getItem("token_id");
 	const headers = {
 		"Access-Control-Allow-Origin": "*",
 		Authorization: `Bearer ${token}`,
