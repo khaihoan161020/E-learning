@@ -7,7 +7,7 @@ export const callAPI = async (url, method, payload) => {
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
     "Access-Control-Allow-Headers": "X-Requested-With,content-type",
     "Content-Type": "application/json",
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzdkY2ZmODRlMWRmNDcyZTg4YjAzZCIsImlhdCI6MTY1MjAyMjg1NX0.eOGZ-45mfKvAh2LctF9SKej8jWZ4SWSDSbyIIqeUGPE`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzdkY2ZmODRlMWRmNDcyZTg4YjAzZCIsImlhdCI6MTY1MjI4MzkwMX0.YoaGM-KugCIOOuVBE12DbpQS8GHzV6_VvpQv_nK_t24`,
   };
   	resp = await axios({
 		method: method,
