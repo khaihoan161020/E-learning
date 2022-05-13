@@ -5,7 +5,7 @@ import Feature from '../../../components/Vocab/Features'
 import VocabTable from '../../../components/Vocab/Table'
 
 function Vocab() {
-
+  console.log("1234");
   const [params, setParams] = useState({
     page: 1,
     limit: 10,
