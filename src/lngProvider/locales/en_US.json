@@ -328,6 +328,7 @@
   "label.rePassword": "Re-Enter Password",
   "label.dob": "Birth Day",
   "label.email": "Email",
+  "label.vocab.search": "Search",
   "modal.title.newUser": "New User",
   "table.column.nameVocab": "Name",
   "table.column.typeVocab": "Type",

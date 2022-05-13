@@ -67,9 +67,7 @@ const UserTable = ({ params, setParams }) => {
 			  <Button type="primary" shape="circle" icon={<EditFilled />} size="small"
 				onClick={()=> dispatch(userAction.toggleModal(data))}
 			  ></Button>
-			  <Button danger shape="circle" icon={<DeleteFilled />} size="small"
-        onClick={()=> dispatch(userAction.deleteUserbyID(data.id))}
-        ></Button>
+			  <Button danger shape="circle" icon={<DeleteFilled />} size="small"></Button>
 		  	</Space>
 	  }
     },

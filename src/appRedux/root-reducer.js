@@ -4,6 +4,7 @@ import Auth from "./Auth/reducers";
 import Common from "./Common/reducers";
 import Setting from "./Setting/reducers";
 import User from "./User/reducers";
+import Vocab from "./Vocab/reducer"
 
 
 const createRootReducer = (history) => combineReducers({
@@ -12,6 +13,7 @@ const createRootReducer = (history) => combineReducers({
     auth: Auth,
     common: Common,
     user: User,
+    vocab: Vocab,
   });
   
   export default createRootReducer
