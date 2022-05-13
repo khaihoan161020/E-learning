@@ -10,6 +10,7 @@ import moment from 'moment';
 import { useEffect } from 'react';
 const VocabModal = ({}) => {
     const [form] = Form.useForm();
+    console.log("123");
     const visibleModal = useSelector((state) => state.user.visibleModal)
 	// const success = useSelector((state) => state.user.success);
 	// const user = useSelector((state) => state.user.user)
