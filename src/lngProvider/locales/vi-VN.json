@@ -326,6 +326,7 @@
   "label.rePassword": "Xác nhận password",
   "label.dob": "Ngày sinh",
   "label.email": "Email",
+  "label.vocab.search": "Tìm kiếm",
   "table.column.nameVocab": "Từ vựng",
   "table.column.typeVocab": "Loại từ",
   "table.column.meanVocab": "Nghĩa ",

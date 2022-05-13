@@ -1,105 +1,72 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import IntlMessages from '../../../util/IntlMessages';
-import { Space, Button, Tag } from 'antd';
+import { Space, Button, Tag, Table } from 'antd';
 import { WrapperTable } from '../../User/Table/Table.style';
+import { useDispatch, useSelector } from 'react-redux';
+import vocabActions from '../../../appRedux/Vocab/action';
 
-const dataSource = [
-    {
-        key: 1,
-        name: 'Operate',
-        type: '(v)',
-        mean: 'vận hành, hoạt động',
-    },
-    {
-        key: 2,
-        name: 'Opportunity',
-        type: '(n)',
-        mean: 'cơ hội',
-    },
-    {
-        key: 3,
-        name: 'Beneficial',
-        type: '(adj)',
-        mean: 'có lợi',
-    },
-    {
-        key: 4,
-        name: 'Publish',
-        type: '(v)',
-        mean: 'xuất bản',
-    },
-    {
-        key: 5,
-        name: 'Charge',
-        type: '(n/v)',
-        mean: 'Phí/tính phí',
-    },
-    {
-        key: 6,
-        name: 'Test',
-        type: '(n)',
-        mean: 'Test',
-    },
-    {
-        key: 7,
-        name: 'Test',
-        type: '(n)',
-        mean: 'Test',
-    },
-    {
-        key: 8,
-        name: 'Test',
-        type: '(n)',
-        mean: 'Test',
-    },
-];
 
-const columns = [
-    {
-        title: <IntlMessages id="table.column.nameVocab" />,
-        dataIndex: "name",
-        key: "name",
-    },
-    {
-        title: <IntlMessages id="table.column.typeVocab" />,
-        dataIndex: "type",
-        key: "type",
-    },
-    {
-        title: <IntlMessages id="table.column.meanVocab" />,
-        dataIndex: "mean",
-        key: "mean",
-    },
-    {
-        title: <IntlMessages id="table.column.statusVocab" />,
-        dataIndex: "key",
-        key: "key",
-        render: (key) => (
-            <Space>
-                <Button style={{ marginBottom: 0 }}>Edit</Button>
-                <Button type="danger" style={{ marginBottom: 0 }}>
-                    Delete
-                </Button>
-            </Space>
-        )
-    },
-];
+function VocabTable({ params, setParams }) {
+    const columns = [
+        {
+            title: <IntlMessages id="table.column.nameVocab" />,
+            dataIndex: "name",
+            key: "name",
+        },
+        // Table.EXPAND_COLUMN,
+        {
+            title: <IntlMessages id="table.column.typeVocab" />,
+            dataIndex: "type",
+            key: "type",
+        },
+        {
+            title: <IntlMessages id="table.column.meanVocab" />,
+            dataIndex: "mean",
+            key: "mean",
+        },
+        {
+            title: <IntlMessages id="table.column.statusVocab" />,
+            dataIndex: "_id",
+            key: "_id",
+            width: 200,
+            render: (index) => (
+                <Space>
+                    <Button style={{ marginBottom: 0 }}>Edit</Button>
+                    <Button type="danger" style={{ marginBottom: 0 }}>
+                        Delete
+                    </Button>
+                </Space>
+            )
+        },
+    ];
 
-function VocabTable() {
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.vocab.data)
+    
+    useEffect(() => {
+        dispatch(vocabActions.fetchVocab(params));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // what logic?
+    }, [dispatch, params]);
+
     return (
         <WrapperTable
             style={{ width: "100%" }}
-            dataSource={dataSource}
+            dataSource={data.rows}
+            // expandable={{
+            //     expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+            // }}
             columns={columns}
             rowKey={'_id'}
-        pagination={{
-          defaultPageSize: 10,
-          showSizeChanger: true,
-          pageSizeOptions: ["10", "20", "50"],
-          onChange: (page, limit) => {
-            console.log(page, limit);
-          },
-        }}
+            pagination={{
+                total: data.count,
+                defaultPageSize: 10,
+                showSizeChanger: true,
+                pageSizeOptions: ["10", "20", "50"],
+                onChange: (page, limit) => {
+                    setParams({...params, page: page, limit: limit})
+                },
+            }}
         />
     )
 }
