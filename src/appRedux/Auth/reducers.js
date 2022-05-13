@@ -11,7 +11,7 @@ import authAction from "./actions";
     alertMessage: '',
     showMessage: false,
     initURL: '',
-    authUser: null,
+    authUser: localStorage.getItem("token_id"),
     loading: false,
     userProfile: null,
     success: false
