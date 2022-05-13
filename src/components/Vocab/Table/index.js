@@ -46,7 +46,6 @@ function VocabTable({ params, setParams }) {
     useEffect(() => {
         dispatch(vocabActions.fetchVocab(params));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        // what logic?
     }, [dispatch, params]);
 
     return (
