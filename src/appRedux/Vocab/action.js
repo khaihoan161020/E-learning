@@ -6,9 +6,9 @@ const vocabActions = {
     FETCH_DATA_VOCAB_SUCCESS: DOCUMENT + "FETCH_DATA_VOCAB_SUCCESS",
     FETCH_DATA_VOCAB_FAILURE: DOCUMENT + "FETCH_DATA_VOCAB_FAILURE",
 
-    // ADD_DATA_USER: DOCUMENT + "ADD_DATA_USER",
-    // ADD_DATA_USER_SUCCESS: DOCUMENT + "ADD_DATA_USER_SUCCESS",
-    // ADD_DATA_USER_FAILURE: DOCUMENT + "ADD_DATA_USER_FAILURE",
+    ADD_DATA_VOCAB: DOCUMENT + "ADD_DATA_VOCAB",
+    ADD_DATA_VOCAB_SUCCESS: DOCUMENT + "ADD_DATA_VOCAB_SUCCESS",
+    ADD_DATA_VOCAB_FAILURE: DOCUMENT + "ADD_DATA_VOCAB_FAILURE",
 
     // EDIT_USER: DOCUMENT + "EDIT_USER",
     // EDIT_USER_SUCCESS: DOCUMENT + "EDIT_USER_SUCCESS",
@@ -29,12 +29,12 @@ const vocabActions = {
             payload: data
         })
     },
-    // addUser: (data) => {
-    //     return ({
-    //         type: userActions.ADD_DATA_USER,
-    //         payload: data
-    //     })
-    // },
+    addVocab: (data) => {
+        return ({
+            type: vocabActions.ADD_DATA_VOCAB,
+            payload: data
+        })
+    },
     // editUser: (data) => {
     //     return ({
     //         type: userActions.EDIT_USER,

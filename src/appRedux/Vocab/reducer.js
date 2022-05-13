@@ -34,24 +34,25 @@ export default function vocabReducer(state = initState, action) {
                 loading: false,
             }
 
-        // case userActions.ADD_DATA_USER:
-        //     return {
-        //         ...state,
-        //         loading: true,
-        //         success: false,
-        //     }
-        // case userActions.ADD_DATA_USER_SUCCESS:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: true,
-        //     }
-        // case userActions.ADD_DATA_USER_FAILURE:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: false,
-        //     }
+        case vocabActions.ADD_DATA_VOCAB:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            }
+        case vocabActions.ADD_DATA_VOCAB_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            }
+        case vocabActions.ADD_DATA_VOCAB_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+            }
+        
         // case userActions.EDIT_USER:
         //     return {
         //         ...state,

@@ -28,32 +28,33 @@ function* fetchVocabLoad() {
         }
     );
 }
-// function* addUseDashboard({payload}) {
-//     try {
-//         let res = yield callAPI(
-//             "register",
-//             "POST",
-//             payload
-//         );
+
+function* addVocabList({payload}) {
+    try {
+        let res = yield callAPI(
+            "vocab",
+            "POST",
+            payload
+        );
         
-//         if (res && res.status === 1) {
-//             console.log('res', res)
-//             notification("success", "Register successfully", "");
-//             yield put({ type: userActions.ADD_DATA_USER_SUCCESS });
-//         }
-//         else {
-//             throw res // throw error into catch block
-//         }
-//     }
+        if (res && res.status === 1) {
+            // console.log('res', res)
+            notification("success", "Add successfully", "");
+            yield put({ type: vocabActions.ADD_DATA_VOCAB_SUCCESS });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
         
-//     catch (error) {
-//             notification("error", error.message, "");
-//             yield put({
-//                 type: userActions.ADD_DATA_USER_FAILURE,
-//             });
-//         }
-    
-// }
+    catch (error) {
+            notification("error", error.message, "");
+            yield put({
+                type: vocabActions.ADD_DATA_VOCAB_FAILURE,
+            });
+        }
+}
+
 // function* editUser({payload}) {
 //     try {
 //         let res = yield callAPI(
@@ -110,7 +111,7 @@ function* fetchVocabLoad() {
 export default function* vocabSaga() {
     yield all([
         fork(fetchVocabLoad),
-        // takeLatest(userActions.ADD_DATA_USER, addUseDashboard),
+        takeLatest(vocabActions.ADD_DATA_VOCAB, addVocabList),
         // takeEvery(userActions.EDIT_USER, editUser),
         // takeEvery(userActions.DELETE_USER, deleteUser)
     ]);
