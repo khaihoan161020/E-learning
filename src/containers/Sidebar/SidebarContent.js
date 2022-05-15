@@ -112,7 +112,7 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
             
               <Menu.Item key="dashboard/reading">
                 <Link to="/dashboard/reading">
-                  <i className="icon icon-feedback -flex-column-reverse"/>
+                  <i className="icon icon-auth-screen -flex-column-reverse"/>
                   <span><IntlMessages id="sidebar.reading"/></span>
                 </Link>
               </Menu.Item>

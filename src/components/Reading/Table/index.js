@@ -13,10 +13,10 @@ function ReadTable({ params, setParams }) {
     console.log(data);
     // const success = useSelector((state) => state.vocab.success);
 
-    // const handleclick = (data) => {
-    //     console.log(data);
-        
-    // }
+    const handleclick = (data) => {
+        console.log(data.data);
+    }
+
     const columns = [
         {
             title: <IntlMessages id="table.column.questionRead" />,
@@ -25,12 +25,13 @@ function ReadTable({ params, setParams }) {
         },
         {
             title: <IntlMessages id="table.column.answerRead" />,
-            dataIndex: "answer",
-            key: "answer",
-            render: (data) => (
-                <Space>
-                    
-                </Space>
+            key: "index",
+            render: (index) => (
+                <>
+                    {index.data.map(data => (
+                        <p>{data.question}</p>
+                    ))}
+                </>
             )
         },
         {
@@ -42,6 +43,7 @@ function ReadTable({ params, setParams }) {
                     <Button
                         style={{ marginBottom: 0 }}
                         // onClick={() => dispatch(vocabActions.toggleModal(data))}
+                        onClick={() => handleclick(data)}
                     >
                         Edit
                     </Button>
