@@ -21,7 +21,7 @@ function* fetchVocabLoad() {
         } catch (error) {
             notification("error", error.message, "");
             yield put({
-                type: vocabActions.FETCH_DATA_VOCAB_SUCCESS,
+                type: vocabActions.FETCH_DATA_VOCAB_FAILURE,
                 payload: error,
             });
             }

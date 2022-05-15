@@ -5,6 +5,7 @@ import Common from "./Common/reducers";
 import Setting from "./Setting/reducers";
 import User from "./User/reducers";
 import Vocab from "./Vocab/reducer"
+import Read from "./Reading/reducer"
 
 
 const createRootReducer = (history) => combineReducers({
@@ -14,6 +15,7 @@ const createRootReducer = (history) => combineReducers({
     common: Common,
     user: User,
     vocab: Vocab,
+    read: Read,
   });
   
   export default createRootReducer

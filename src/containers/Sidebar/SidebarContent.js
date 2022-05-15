@@ -109,6 +109,13 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
                   <span><IntlMessages id="sidebar.vocab"/></span>
                 </Link>
               </Menu.Item>
+            
+              <Menu.Item key="dashboard/reading">
+                <Link to="/dashboard/reading">
+                  <i className="icon icon-feedback -flex-column-reverse"/>
+                  <span><IntlMessages id="sidebar.reading"/></span>
+                </Link>
+              </Menu.Item>
 
               <Menu.Item key="in-built-apps/mail">
                 <Link to="/in-built-apps/mail"><i className="icon icon-email"/><span><IntlMessages
