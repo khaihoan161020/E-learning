@@ -7,13 +7,21 @@ import vocabActions from '../../../appRedux/Vocab/action';
 
 
 function VocabTable({ params, setParams }) {
+
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.vocab.data)
+    const success = useSelector((state) => state.vocab.success);
+
+    // const handleclick = (data) => {
+    //     console.log(data);
+        
+    // }
     const columns = [
         {
             title: <IntlMessages id="table.column.nameVocab" />,
             dataIndex: "name",
             key: "name",
         },
-        // Table.EXPAND_COLUMN,
         {
             title: <IntlMessages id="table.column.typeVocab" />,
             dataIndex: "type",
@@ -21,18 +29,27 @@ function VocabTable({ params, setParams }) {
         },
         {
             title: <IntlMessages id="table.column.meanVocab" />,
-            dataIndex: "mean",
-            key: "mean",
+            dataIndex: "means",
+            key: "means",
         },
         {
             title: <IntlMessages id="table.column.statusVocab" />,
-            dataIndex: "_id",
-            key: "_id",
+            key: "action",
             width: 200,
-            render: (index) => (
+            render: (data) => (
                 <Space>
-                    <Button style={{ marginBottom: 0 }}>Edit</Button>
-                    <Button type="danger" style={{ marginBottom: 0 }}>
+                    <Button
+                        style={{ marginBottom: 0 }}
+                        onClick={() => dispatch(vocabActions.toggleModal(data))}
+                    >
+                        Edit
+                    </Button>
+
+                    <Button 
+                        type="danger"
+                        style={{ marginBottom: 0 }}
+                        onClick={() => dispatch(vocabActions.deleteVocabbyID(data.id))}
+                    >
                         Delete
                     </Button>
                 </Space>
@@ -40,8 +57,11 @@ function VocabTable({ params, setParams }) {
         },
     ];
 
-    const dispatch = useDispatch();
-    const data = useSelector(state => state.vocab.data)
+    useEffect(() => {
+        if (success)
+            dispatch(vocabActions.fetchVocab(params))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [success]);
     
     useEffect(() => {
         dispatch(vocabActions.fetchVocab(params));
@@ -52,9 +72,6 @@ function VocabTable({ params, setParams }) {
         <WrapperTable
             style={{ width: "100%" }}
             dataSource={data.rows}
-            // expandable={{
-            //     expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
-            // }}
             columns={columns}
             rowKey={'_id'}
             pagination={{

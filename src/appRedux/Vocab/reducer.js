@@ -9,13 +9,16 @@ const initState = {
 }
 export default function vocabReducer(state = initState, action) { 
     switch (action.type) {
-        // case userActions.TOGGLE_MODAL:
-        //     return {
-        //         ...state,
-        //         visibleModal: !state.visibleModal,
-        //         user: action.payload,
-        //         success: false
-        //     }
+        // Show modal
+        case vocabActions.TOGGLE_MODAL:
+            return {
+                ...state,
+                visibleModal: !state.visibleModal,
+                vocab: action.payload,
+                success: false
+            }
+
+        // Fetch data
         case vocabActions.FETCH_DATA_VOCAB:
             return {
                 ...state,
@@ -34,6 +37,7 @@ export default function vocabReducer(state = initState, action) {
                 loading: false,
             }
 
+        // Add vocab
         case vocabActions.ADD_DATA_VOCAB:
             return {
                 ...state,
@@ -53,42 +57,46 @@ export default function vocabReducer(state = initState, action) {
                 success: false,
             }
         
-        // case userActions.EDIT_USER:
-        //     return {
-        //         ...state,
-        //         loading: true,
-        //         success: false,
-        //     }
-        // case userActions.EDIT_USER_SUCCESS:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: true,
-        //     }
-        // case userActions.EDIT_USER_FAILURE:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: false,
-        //     }
-        // case userActions.DELETE_USER:
-        //     return {
-        //         ...state,
-        //         loading: true,
-        //         success: false,
-        //     }
-        // case userActions.DELETE_USER_SUCCESS:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: true,
-        //     }
-        // case userActions.DELETE_USER_FAILURE:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: false,
-        //     }
+        // Edit vocab
+        case vocabActions.EDIT_VOCAB:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            }
+        case vocabActions.EDIT_VOCAB_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            }
+        case vocabActions.EDIT_VOCAB_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+            }
+
+        // Delete vocab
+        case vocabActions.DELETE_VOCAB:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            }
+        case vocabActions.DELETE_VOCAB_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            }
+        case vocabActions.DELETE_VOCAB_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+            }
+        
         default: 
             return state;
     }

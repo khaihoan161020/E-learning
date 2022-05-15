@@ -3,39 +3,40 @@ import { Modal, Button, Form, Input, DatePicker, Radio, InputNumber  } from 'ant
 import IntlMessages from "../../../util/IntlMessages";
 import { FooterModal } from "./Modal.style"
 import { useSelector } from 'react-redux';
-import userAction from '../../../appRedux/User/actions'
+import vocabActions from '../../../appRedux/Vocab/action';
 import { useDispatch } from 'react-redux';
 import { DateFormat, DateServerFormat } from '../../../util/dateFormat'
 import moment from 'moment';
 import { useEffect } from 'react';
 const VocabModal = ({}) => {
     const [form] = Form.useForm();
-    console.log("123");
-    const visibleModal = useSelector((state) => state.user.visibleModal)
-	// const success = useSelector((state) => state.user.success);
+    const visibleModal = useSelector((state) => state.vocab.visibleModal)
+	const success = useSelector((state) => state.vocab.success);
 	// const user = useSelector((state) => state.user.user)
+    const vocab = useSelector(state => state.vocab.vocab)
     const dispatch = useDispatch();
-    const userReq = {
-      username: '',
-      password: '',
-      dob: '',
-      email: '',
-	  score: null,
-	  isDeleted: null
+    const vocabReq = {
+      name: '',
+      type: '',
+      means: ''
     }
     const layout = {
-        labelCol: { span: 8 },
+        labelCol: { span: 6 },
         wrapperCol: { span: 16 },
       };
     const onSubmitUser = async () => {
-        // const values = await form.validateFields();
-		// if(user)
-		// 	userReq.id = user.id
-        // if (values.username)
-		// 	userReq.username =  values.username
+        const values = await form.validateFields();
+		if(vocab)
+			vocabReq.id = vocab.id
 
-        // if (values.password)
-		// 	userReq.password = values.password
+        if (values.name)
+			vocabReq.name =  values.name
+
+        if (values.type)
+			vocabReq.type = values.type
+
+        if (values.means)
+			vocabReq.means = values.means
 
 		// if (values.dob)
 		// 	userReq.dob = moment(values.dob).format(DateServerFormat)
@@ -51,105 +52,63 @@ const VocabModal = ({}) => {
 		// if(values.isDeleted) 
 		// 	userReq.isDeleted = values.isDeleted
 
-		// if (user) { // edit => update
-		// 	dispatch(userAction.editUser(userReq))
-		// }
-		// else 
-		// 	dispatch(userAction.addUser(userReq))
+		if (vocab) { // edit => update
+			dispatch(vocabActions.editVocab(vocabReq))
+		}
+		else 
+			dispatch(vocabActions.addVocab(vocabReq))
     }
-	// useEffect(()=>{
-	// 	if (user) {
-	// 		form.setFieldsValue({
-	// 			username: user.username,
-	// 			dob: user.dob ? moment(user.dob) : null,
-	// 			email: user.email,
-	// 			score: user.score,
-	// 			isDeleted: user.isDeleted
-	// 		})
-	// 	}
-	// // eslint-disable-next-line react-hooks/exhaustive-deps
-	// },[user])
+	useEffect(()=>{
+		if (vocab) {
+			form.setFieldsValue({
+				name: vocab.name,
+				type: vocab.type,
+				means: vocab.means,
+			})
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[vocab])
 
-	// useEffect(()=>{
-	// 	if(success) {
-	// 		form.resetFields();
-	// 		dispatch(userAction.toggleModal())
-	// 	}
-	// }, [success])
+	useEffect(()=>{
+		if(success) {
+			form.resetFields();
+			dispatch(vocabActions.toggleModal())
+		}
+	}, [success])
     return (
         <Modal 
-            title={user ? <IntlMessages id="modal.title.editUser"/> : <IntlMessages id="modal.title.newUser"/>}
+            // title={user ? <IntlMessages id="modal.title.editUser"/> : <IntlMessages id="modal.title.newUser"/>}
+            title={'Add vocab'}
             visible={visibleModal}
             footer={null}    
             closable={false}
         >
-            <Form {...layout} form={form} name="control-hooks" onFinish={() => { onSubmitUser()}}>
-
-                <Form.Item name="username" label={<IntlMessages id="label.username" />} 
-                    rules={[{ required: true },
-                            {pattern: /^\S*$/, 
-                            message: <IntlMessages id="regex.notAllowSpace" />}]}>
-                    <Input disabled={user} autoComplete='off' autoCorrect='true' />
+            <Form {...layout} form={form} name="control-hooks" onFinish={() => onSubmitUser()}>
+                
+                <Form.Item name="name" label={<IntlMessages id="label.V_name" />} 
+                    rules={[{ required: true }]}
+                >
+                    <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
-
-                {!user && <Form.Item name="password" label={<IntlMessages id="label.password" />} hasFeedback rules={[ { required: true } ]}>
-                    <Input.Password  autoComplete='new-password' />
-                </Form.Item> }
-
-                {!user && <Form.Item 
-                    name="rePassword" 
-                    label={<IntlMessages id="label.rePassword" />} 
-                    dependencies={['password']}
-                    hasFeedback
-                    rules={[
-                        {
-                          required: true,
-                          message: <IntlMessages id="regex.confirmPassword" />,
-                        },
-                        ({ getFieldValue }) => ({
-                          validator(rule, value) {
-                            if (!value || getFieldValue('password') === value) {
-                              return Promise.resolve();
-                            }
-                            return Promise.reject(<IntlMessages id="regex.confirmPassword" />);
-                          },
-                        }),
-                      ]}>
-                    <Input.Password />
-                </Form.Item> }
-				
-                <Form.Item name="dob" label={<IntlMessages id="label.dob" />} >
-                    <DatePicker style={{width: '100%'}} format={DateFormat} />
+                
+                <Form.Item name="type" label={<IntlMessages id="label.V_type" />} 
+                    rules={[{ required: true }]}
+                >
+                    <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
-
-                <Form.Item 
-                    name="email" 
-                    label={<IntlMessages id="label.email" />}
-                    rules={[{ pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: "invalid"
-                    }]}
-                    hasFeedback
-                    >
-                    <Input  />
+                
+                <Form.Item name="means" label={<IntlMessages id="label.V_mean" />} 
+                    rules={[{ required: true }]}
+                >
+                    <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
-
-				{user && <Form.Item name="score" label={<IntlMessages id="label.score" />} >
-						<InputNumber style={{width: '100%'}} />
-                </Form.Item>}
-
-				{user && <Form.Item name="isDeleted" label={<IntlMessages id="label.status" />} >
-					<Radio.Group >
-						<Radio value={false}><IntlMessages id="radio.active" /></Radio>
-						<Radio value={true}><IntlMessages id="radio.disable" /></Radio>
-					</Radio.Group>
-                </Form.Item>}
 
                 <FooterModal >
                     <Button type='primary' htmlType="submit">
                         <IntlMessages id="button.save" />
                     </Button>
                     <Button  
-                        onClick={() => dispatch(userAction.toggleModal())}
+                        onClick={() => dispatch(vocabActions.toggleModal())}
                     ><IntlMessages id="button.close" /></Button>
                 </FooterModal>
                 
