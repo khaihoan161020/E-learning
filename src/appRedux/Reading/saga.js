@@ -82,39 +82,39 @@ function* fetchReadLoad() {
     
 // }
 
-// function* deleteVocab({payload}) {
-//     console.log(payload);
-//     try {
-//         let res = yield callAPI(
-//             `vocab/${payload}`,
-//             "DELETE",
-//             null
-//         );
+function* deleteRead({payload}) {
+    console.log(payload);
+    try {
+        let res = yield callAPI(
+            `reading/${payload}`,
+            "DELETE",
+            null
+        );
         
-//         if (res && res.CODE === 1) {
-//             console.log('res', res)
-//             notification("success", res.message , "");
-//             yield put({ type: vocabActions.DELETE_VOCAB_SUCCESS });
-//         }
-//         else {
-//             throw res // throw error into catch block
-//         }
-//     }
+        if (res && res.CODE === 1) {
+            console.log('res', res)
+            notification("success", res.message , "");
+            yield put({ type: readActions.DELETE_READ_SUCCESS });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
         
-//     catch (error) {
-//             notification("error", error.message, "");
-//             yield put({
-//                 type: vocabActions.DELETE_VOCAB_FAILURE,
-//             });
-//         }
+    catch (error) {
+            notification("error", error.message, "");
+            yield put({
+                type: readActions.DELETE_READ_FAILURE,
+            });
+        }
     
-// }
+}
 
 export default function* readSaga() {
     yield all([
         fork(fetchReadLoad),
         // takeLatest(vocabActions.ADD_DATA_VOCAB, addVocabList),
         // takeEvery(vocabActions.EDIT_VOCAB, editVocabList),
-        // takeEvery(vocabActions.DELETE_VOCAB, deleteVocab)
+        takeEvery(readActions.DELETE_READ, deleteRead)
     ]);
 }

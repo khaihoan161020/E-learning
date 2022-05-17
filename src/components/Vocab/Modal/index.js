@@ -1,18 +1,15 @@
 
-import { Modal, Button, Form, Input, DatePicker, Radio, InputNumber  } from 'antd';
+import { Modal, Button, Form, Input } from 'antd';
 import IntlMessages from "../../../util/IntlMessages";
 import { FooterModal } from "./Modal.style"
 import { useSelector } from 'react-redux';
 import vocabActions from '../../../appRedux/Vocab/action';
 import { useDispatch } from 'react-redux';
-import { DateFormat, DateServerFormat } from '../../../util/dateFormat'
-import moment from 'moment';
 import { useEffect } from 'react';
 const VocabModal = ({}) => {
     const [form] = Form.useForm();
     const visibleModal = useSelector((state) => state.vocab.visibleModal)
 	const success = useSelector((state) => state.vocab.success);
-	// const user = useSelector((state) => state.user.user)
     const vocab = useSelector(state => state.vocab.vocab)
     const dispatch = useDispatch();
     const vocabReq = {
@@ -38,20 +35,6 @@ const VocabModal = ({}) => {
         if (values.means)
 			vocabReq.means = values.means
 
-		// if (values.dob)
-		// 	userReq.dob = moment(values.dob).format(DateServerFormat)
-		// else userReq.dob = null
-
-		// if (values.email)
-		// 	userReq.email = values.email
-		// else userReq.email = null
-	
-		// if(values.score) 
-		// 	userReq.score = values.score
-
-		// if(values.isDeleted) 
-		// 	userReq.isDeleted = values.isDeleted
-
 		if (vocab) { // edit => update
 			dispatch(vocabActions.editVocab(vocabReq))
 		}
@@ -66,7 +49,6 @@ const VocabModal = ({}) => {
 				means: vocab.means,
 			})
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[vocab])
 
 	useEffect(()=>{
@@ -77,8 +59,7 @@ const VocabModal = ({}) => {
 	}, [success])
     return (
         <Modal 
-            // title={user ? <IntlMessages id="modal.title.editUser"/> : <IntlMessages id="modal.title.newUser"/>}
-            title={'Add vocab'}
+            title={vocab ? <IntlMessages id="modal.title.editVocab"/> : <IntlMessages id="modal.title.newVocab"/>}
             visible={visibleModal}
             footer={null}    
             closable={false}

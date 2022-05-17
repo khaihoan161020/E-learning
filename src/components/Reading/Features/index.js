@@ -2,7 +2,7 @@ import { Row, Col, Form, Select, Input, Button  } from 'antd';
 import { WrapperButtons } from './Feature.style'
 import IntlMessages from "../../../util/IntlMessages";
 import { useDispatch } from 'react-redux';
-import vocabActions from '../../../appRedux/Vocab/action';
+import readActions from '../../../appRedux/Reading/action';
 
 const Feature = () => {
     const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Feature = () => {
                     <Col md={8}>
                         <WrapperButtons>
                             <Button type="primary"
-                                // onClick={() => dispatch(vocabActions.toggleModal())}
+                                onClick={() => dispatch(readActions.toggleModal())}
                             >
                                 <IntlMessages id="button.addNew"/></Button>
                         </WrapperButtons>

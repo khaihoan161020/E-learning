@@ -8,12 +8,14 @@ import { useDispatch } from 'react-redux';
 import { DateFormat, DateServerFormat } from '../../../util/dateFormat'
 import moment from 'moment';
 import { useEffect } from 'react';
-const VocabModal = ({}) => {
+import readActions from '../../../appRedux/Reading/action';
+
+const ReadingModal = ({}) => {
     const [form] = Form.useForm();
-    const visibleModal = useSelector((state) => state.vocab.visibleModal)
-	const success = useSelector((state) => state.vocab.success);
+    const visibleModal = useSelector((state) => state.read.visibleModal)
+	// const success = useSelector((state) => state.vocab.success);
 	// const user = useSelector((state) => state.user.user)
-    const vocab = useSelector(state => state.vocab.vocab)
+    // const vocab = useSelector(state => state.vocab.vocab)
     const dispatch = useDispatch();
     const vocabReq = {
       name: '',
@@ -25,18 +27,18 @@ const VocabModal = ({}) => {
         wrapperCol: { span: 16 },
       };
     const onSubmitUser = async () => {
-        const values = await form.validateFields();
-		if(vocab)
-			vocabReq.id = vocab.id
+        // const values = await form.validateFields();
+		// if(vocab)
+		// 	vocabReq.id = vocab.id
 
-        if (values.name)
-			vocabReq.name =  values.name
+        // if (values.name)
+		// 	vocabReq.name =  values.name
 
-        if (values.type)
-			vocabReq.type = values.type
+        // if (values.type)
+		// 	vocabReq.type = values.type
 
-        if (values.means)
-			vocabReq.means = values.means
+        // if (values.means)
+		// 	vocabReq.means = values.means
 
 		// if (values.dob)
 		// 	userReq.dob = moment(values.dob).format(DateServerFormat)
@@ -52,63 +54,63 @@ const VocabModal = ({}) => {
 		// if(values.isDeleted) 
 		// 	userReq.isDeleted = values.isDeleted
 
-		if (vocab) { // edit => update
-			dispatch(vocabActions.editVocab(vocabReq))
-		}
-		else 
-			dispatch(vocabActions.addVocab(vocabReq))
+		// if (vocab) { // edit => update
+		// 	dispatch(vocabActions.editVocab(vocabReq))
+		// }
+		// else 
+		// 	dispatch(vocabActions.addVocab(vocabReq))
     }
-	useEffect(()=>{
-		if (vocab) {
-			form.setFieldsValue({
-				name: vocab.name,
-				type: vocab.type,
-				means: vocab.means,
-			})
-		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[vocab])
+	// useEffect(()=>{
+	// 	if (vocab) {
+	// 		form.setFieldsValue({
+	// 			name: vocab.name,
+	// 			type: vocab.type,
+	// 			means: vocab.means,
+	// 		})
+	// 	}
+	// // eslint-disable-next-line react-hooks/exhaustive-deps
+	// },[vocab])
 
-	useEffect(()=>{
-		if(success) {
-			form.resetFields();
-			dispatch(vocabActions.toggleModal())
-		}
-	}, [success])
+	// useEffect(()=>{
+	// 	if(success) {
+	// 		form.resetFields();
+	// 		dispatch(vocabActions.toggleModal())
+	// 	}
+	// }, [success])
     return (
         <Modal 
             // title={user ? <IntlMessages id="modal.title.editUser"/> : <IntlMessages id="modal.title.newUser"/>}
-            title={'Add vocab'}
+            title={'Add question'}
             visible={visibleModal}
             footer={null}    
             closable={false}
         >
             <Form {...layout} form={form} name="control-hooks" onFinish={() => onSubmitUser()}>
                 
-                <Form.Item name="name" label={<IntlMessages id="label.V_name" />} 
+                <Form.Item name="question" label={<IntlMessages id="label.R_question" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
                 
-                <Form.Item name="type" label={<IntlMessages id="label.V_type" />} 
+                <Form.Item name="Answer" label={<IntlMessages id="label.R_answer" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
                 
-                <Form.Item name="means" label={<IntlMessages id="label.V_mean" />} 
+                {/* <Form.Item name="means" label={<IntlMessages id="label.V_mean" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
-                </Form.Item>
+                </Form.Item> */}
 
                 <FooterModal >
                     <Button type='primary' htmlType="submit">
                         <IntlMessages id="button.save" />
                     </Button>
                     <Button  
-                        onClick={() => dispatch(vocabActions.toggleModal())}
+                        onClick={() => dispatch(readActions.toggleModal())}
                     ><IntlMessages id="button.close" /></Button>
                 </FooterModal>
                 
@@ -116,4 +118,4 @@ const VocabModal = ({}) => {
       </Modal>
     )
 }
-export default VocabModal;
+export default ReadingModal;
