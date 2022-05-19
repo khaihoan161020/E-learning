@@ -2,6 +2,7 @@
   "app.announced": "A new version will be released on December 25th. Stay tuned!",
   "sidebar.main": "Main",
   "sidebar.dashboard": "Dashboard",
+  "sidebar.listening": "Listening",
   "sidebar.user": "User",
   "sidebar.vocab": "Vocab",
   "sidebar.reading": "Reading",
@@ -337,6 +338,15 @@
   "label.R_answer": "Answer",
   "modal.title.newUser": "New User",
   "modal.title.newVocab": "New Vocabulary",
+  "label.question": "Question",
+  "label.isCorrect": "isCorrect",
+  "label.fileAudio": "File audio",
+  "label.answer": "Answer",
+  "label.vocab.search": "Search",
+  "modal.title.newUser": "New User",
+  "modal.title.editUser": "Edit User",
+  "modal.title.newListening": "New Listening",
+  "modal.title.editListening": "Edit Listening",
   "table.column.nameVocab": "Name",
   "table.column.typeVocab": "Type",
   "table.column.meanVocab": "Mean",
@@ -351,5 +361,8 @@
   "table.column.email": "Email",
   "table.column.status": "Status",
   "table.column.score": "Score",
-  "table.column.action": "Action"
+  "table.column.action": "Action",
+  "table.column.question": "Question",
+  "table.column.audio": "Audio",
+  "table.column.answer": "Answer"
 }

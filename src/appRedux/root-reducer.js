@@ -6,7 +6,7 @@ import Setting from "./Setting/reducers";
 import User from "./User/reducers";
 import Vocab from "./Vocab/reducer"
 import Read from "./Reading/reducer"
-
+import Listening from "./Listening/reducers";
 
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
@@ -16,6 +16,7 @@ const createRootReducer = (history) => combineReducers({
     user: User,
     vocab: Vocab,
     read: Read,
+    listening: Listening
   });
   
   export default createRootReducer

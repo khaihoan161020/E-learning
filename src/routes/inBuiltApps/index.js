@@ -16,6 +16,7 @@ const InBuiltApps = ({match}) => (
     <Route path={`${match.url}/user`} component={asyncComponent(() => import('./User'))}/>
     <Route path={`${match.url}/vocab`} component={asyncComponent(() => import('./Vocab'))}/>
     <Route path={`${match.url}/reading`} component={asyncComponent(() => import('./Reading'))}/>
+    <Route path={`${match.url}/listening`} component={asyncComponent(() => import('./Listening'))}/>
   </Switch>
 );
 
