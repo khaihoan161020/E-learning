@@ -5,7 +5,7 @@ const initState = {
     loading: false,
     success: false,
     visibleModal: false,
-    read: null
+    itemEdit: null
 }
 export default function readReducer(state = initState, action) { 
     switch (action.type) {
@@ -14,11 +14,11 @@ export default function readReducer(state = initState, action) {
             return {
                 ...state,
                 visibleModal: !state.visibleModal,
-                read: action.payload,
+                itemEdit: action.payload,
                 success: false
             }
 
-        // Fetch data
+        // Fetch reading data
         case readActions.FETCH_DATA_READ:
             return {
                 ...state,
@@ -37,47 +37,47 @@ export default function readReducer(state = initState, action) {
                 loading: false,
             }
 
-        // // Add vocab
-        // case vocabActions.ADD_DATA_VOCAB:
-        //     return {
-        //         ...state,
-        //         loading: true,
-        //         success: false,
-        //     }
-        // case vocabActions.ADD_DATA_VOCAB_SUCCESS:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: true,
-        //     }
-        // case vocabActions.ADD_DATA_VOCAB_FAILURE:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: false,
-        //     }
+        // Add reading question
+        case readActions.ADD_DATA_READ:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            }
+        case readActions.ADD_DATA_READ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            }
+        case readActions.ADD_DATA_READ_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+            }
         
-        // // Edit vocab
-        // case vocabActions.EDIT_VOCAB:
-        //     return {
-        //         ...state,
-        //         loading: true,
-        //         success: false,
-        //     }
-        // case vocabActions.EDIT_VOCAB_SUCCESS:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: true,
-        //     }
-        // case vocabActions.EDIT_VOCAB_FAILURE:
-        //     return {
-        //         ...state,
-        //         loading: false,
-        //         success: false,
-        //     }
+        // Edit reading question
+        case readActions.EDIT_READ:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            }
+        case readActions.EDIT_READ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            }
+        case readActions.EDIT_READ_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+            }
 
-        // Delete vocab
+        // Delete reading question
         case readActions.DELETE_READ:
             return {
                 ...state,

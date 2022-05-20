@@ -1,5 +1,5 @@
 
-import { Modal, Button, Form, Input, DatePicker, Radio, InputNumber  } from 'antd';
+import { Modal, Button, Form, Input, Select  } from 'antd';
 import IntlMessages from "../../../util/IntlMessages";
 import { FooterModal } from "./Modal.style"
 import { useSelector } from 'react-redux';
@@ -10,73 +10,88 @@ import moment from 'moment';
 import { useEffect } from 'react';
 import readActions from '../../../appRedux/Reading/action';
 
+const { TextArea } = Input;
+const { Option } = Select;
+
 const ReadingModal = ({}) => {
     const [form] = Form.useForm();
     const visibleModal = useSelector((state) => state.read.visibleModal)
-	// const success = useSelector((state) => state.vocab.success);
+	const success = useSelector((state) => state.read.success);
 	// const user = useSelector((state) => state.user.user)
-    // const vocab = useSelector(state => state.vocab.vocab)
+    const itemEdit = useSelector(state => state.read.itemEdit)
+
     const dispatch = useDispatch();
-    const vocabReq = {
-      name: '',
-      type: '',
-      means: ''
+
+    const readReq = {
+      question: '',
+      data: []
     }
+
     const layout = {
-        labelCol: { span: 6 },
-        wrapperCol: { span: 16 },
+        labelCol: { span: 4 },
+        wrapperCol: { span: 19 },
       };
+
     const onSubmitUser = async () => {
-        // const values = await form.validateFields();
-		// if(vocab)
-		// 	vocabReq.id = vocab.id
+        const values = await form.validateFields();
+		if (itemEdit)
+			readReq.id = itemEdit.id
 
-        // if (values.name)
-		// 	vocabReq.name =  values.name
+        if (values.question)
+			readReq.question = values.question
 
-        // if (values.type)
-		// 	vocabReq.type = values.type
+        if (values.ans1)
+			readReq.data.push({
+                answer: values.ans1,
+                isCorrect: values.isCorrect === '0' ? true : false
+            })
 
-        // if (values.means)
-		// 	vocabReq.means = values.means
+        if (values.ans2)
+			readReq.data.push({
+                answer: values.ans2,
+                isCorrect: values.isCorrect === '1' ? true : false
+            })
 
-		// if (values.dob)
-		// 	userReq.dob = moment(values.dob).format(DateServerFormat)
-		// else userReq.dob = null
+        if (values.ans3)
+			readReq.data.push({
+                answer: values.ans3,
+                isCorrect: values.isCorrect === '2' ? true : false
+            })
 
-		// if (values.email)
-		// 	userReq.email = values.email
-		// else userReq.email = null
-	
-		// if(values.score) 
-		// 	userReq.score = values.score
+        if (values.ans4)
+			readReq.data.push({
+                answer: values.ans4,
+                isCorrect: values.isCorrect === '3' ? true : false
+            })
 
-		// if(values.isDeleted) 
-		// 	userReq.isDeleted = values.isDeleted
-
-		// if (vocab) { // edit => update
-		// 	dispatch(vocabActions.editVocab(vocabReq))
-		// }
-		// else 
-		// 	dispatch(vocabActions.addVocab(vocabReq))
+		if (itemEdit) { // edit => update
+			dispatch(readActions.editReadQues(readReq))
+		}
+		else 
+			dispatch(readActions.addReadQues(readReq))
     }
-	// useEffect(()=>{
-	// 	if (vocab) {
-	// 		form.setFieldsValue({
-	// 			name: vocab.name,
-	// 			type: vocab.type,
-	// 			means: vocab.means,
-	// 		})
-	// 	}
-	// // eslint-disable-next-line react-hooks/exhaustive-deps
-	// },[vocab])
 
-	// useEffect(()=>{
-	// 	if(success) {
-	// 		form.resetFields();
-	// 		dispatch(vocabActions.toggleModal())
-	// 	}
-	// }, [success])
+	useEffect(()=>{
+		if (itemEdit) {
+            const indexCorrect = itemEdit.data.findIndex(i => i.isCorrect)
+			form.setFieldsValue({
+                question: itemEdit.question,
+				ans1: itemEdit.data[0].answer,
+				ans2: itemEdit.data[1].answer,
+				ans3: itemEdit.data[2].answer,
+				ans4: itemEdit.data[3].answer,
+                isCorrect: indexCorrect.toString()
+			})
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[itemEdit])
+
+	useEffect(()=>{
+		if(success) {
+			form.resetFields();
+			dispatch(readActions.toggleModal())
+		}
+	}, [success])
     return (
         <Modal 
             // title={user ? <IntlMessages id="modal.title.editUser"/> : <IntlMessages id="modal.title.newUser"/>}
@@ -84,26 +99,50 @@ const ReadingModal = ({}) => {
             visible={visibleModal}
             footer={null}    
             closable={false}
+            width={700}
         >
             <Form {...layout} form={form} name="control-hooks" onFinish={() => onSubmitUser()}>
                 
                 <Form.Item name="question" label={<IntlMessages id="label.R_question" />} 
                     rules={[{ required: true }]}
                 >
-                    <Input autoComplete='off' autoCorrect='true' />
+                    <TextArea autoSize={{ minRows: 2, maxRows: 3 }} />
                 </Form.Item>
                 
-                <Form.Item name="Answer" label={<IntlMessages id="label.R_answer" />} 
+                <Form.Item name="ans1" label={<IntlMessages id="label.R_answer1" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
                 
-                {/* <Form.Item name="means" label={<IntlMessages id="label.V_mean" />} 
+                <Form.Item name="ans2" label={<IntlMessages id="label.R_answer2" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
-                </Form.Item> */}
+                </Form.Item>
+                
+                <Form.Item name="ans3" label={<IntlMessages id="label.R_answer3" />} 
+                    rules={[{ required: true }]}
+                >
+                    <Input autoComplete='off' autoCorrect='true' />
+                </Form.Item>
+                
+                <Form.Item name="ans4" label={<IntlMessages id="label.R_answer4" />} 
+                    rules={[{ required: true }]}
+                >
+                    <Input autoComplete='off' autoCorrect='true' />
+                </Form.Item>
+
+                <Form.Item name="isCorrect" label={<IntlMessages id="label.R_isCorrect" />} 
+                    rules={[{ required: true }]}
+                >
+                    <Select>
+                        <Option value="0">Answer 1</Option>
+                        <Option value="1">Answer 2</Option>
+                        <Option value="2">Answer 3</Option>
+                        <Option value="3">Answer 4</Option>
+                    </Select>
+                </Form.Item>
 
                 <FooterModal >
                     <Button type='primary' htmlType="submit">

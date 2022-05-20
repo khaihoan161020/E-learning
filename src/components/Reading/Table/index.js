@@ -10,12 +10,12 @@ function ReadTable({ params, setParams }) {
 
     const dispatch = useDispatch();
     const data = useSelector(state => state.read.data)
-    console.log(data);
-    // const success = useSelector((state) => state.vocab.success);
+    // console.log(data);
+    const success = useSelector((state) => state.read.success);
 
-    const handleclick = (data) => {
-        console.log(data.data);
-    }
+    // const handleclick = (data) => {
+    //     console.log(data.data);
+    // }
 
     const columns = [
         {
@@ -25,14 +25,11 @@ function ReadTable({ params, setParams }) {
         },
         {
             title: <IntlMessages id="table.column.answerRead" />,
-            key: "index",
-            render: (index) => (
-                <>
-                    {index.data.map(data => (
-                        <p>{data.question}</p>
-                    ))}
-                </>
-            )
+            dataIndex: "data",
+            key: "data",
+            render: (index) => {
+                return index.map((item, index) => <div key={index}>{item.answer}</div>)
+            }
         },
         {
             title: <IntlMessages id="table.column.actionRead" />,
@@ -42,8 +39,8 @@ function ReadTable({ params, setParams }) {
                 <Space>
                     <Button
                         style={{ marginBottom: 0 }}
-                        // onClick={() => dispatch(vocabActions.toggleModal(data))}
-                        onClick={() => handleclick(data)}
+                        onClick={() => dispatch(readActions.toggleModal(data))}
+                        // onClick={() => handleclick(data)}
                     >
                         Edit
                     </Button>
@@ -51,7 +48,7 @@ function ReadTable({ params, setParams }) {
                     <Button 
                         type="danger"
                         style={{ marginBottom: 0 }}
-                        // onClick={() => dispatch(vocabActions.deleteVocabbyID(data.id))}
+                        onClick={() => dispatch(readActions.deleteReadbyID(data.id))}
                     >
                         Delete
                     </Button>
@@ -60,11 +57,11 @@ function ReadTable({ params, setParams }) {
         },
     ];
 
-    // useEffect(() => {
-    //     if (success)
-    //         dispatch(vocabActions.fetchVocab(params))
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [success]);
+    useEffect(() => {
+        if (success)
+            dispatch(readActions.fetchRead(params))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [success]);
     
     useEffect(() => {
         dispatch(readActions.fetchRead(params));
