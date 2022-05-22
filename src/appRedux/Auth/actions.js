@@ -5,7 +5,10 @@ const authAction = {
     LOGIN_USER_FAILURE: DOCUMENT + "LOGIN_USER_FAILURE",
 
     LOGOUT_USER: DOCUMENT + "LOGOUT_USER",
-   
+    
+    CHECK_TOKEN: DOCUMENT + "CHECK_TOKEN", 
+    CHECK_TOKEN_SUCCESS: DOCUMENT + "CHECK_TOKEN_SUCCESS", 
+    CHECK_TOKEN_FAILURE: DOCUMENT + "CHECK_TOKEN_FAILURE", 
     loginUser: (data) => {
         return ({
             type: authAction.LOGIN_USER,
@@ -15,6 +18,11 @@ const authAction = {
     logoutUser: () => {
         return ({
             type: authAction.LOGOUT_USER
+        })
+    },
+    checkToken: () => {
+        return ({
+            type: authAction.CHECK_TOKEN
         })
     }
 }

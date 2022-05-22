@@ -1,8 +1,9 @@
 import React from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Popover} from "antd";
 import authAction from "../../appRedux/Auth/actions";
 const UserProfile = () => {
+  const userProfile = useSelector((state) => state.auth.userProfile)
   const dispatch = useDispatch();
   const userMenuOptions = (
     <ul className="gx-user-popover">
@@ -19,7 +20,7 @@ const UserProfile = () => {
       <Popover placement="bottomRight" content={userMenuOptions} trigger="click">
         <Avatar src={"https://via.placeholder.com/150"}
                 className="gx-size-40 gx-pointer gx-mr-3" alt=""/>
-        <span className="gx-avatar-name">Rob Farnandies<i
+        <span className="gx-avatar-name">{ userProfile && userProfile?.user.username}<i
           className="icon icon-chevron-down gx-fs-xxs gx-ml-2"/></span>
       </Popover>
     </div>

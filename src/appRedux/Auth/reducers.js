@@ -44,14 +44,34 @@ import authAction from "./actions";
         }
       }
       case authAction.LOGOUT_USER: {
-        localStorage.setItem("token_id",  null);
+        localStorage.removeItem("token_id");
         return {
           ...state,
-          initURL: '/',
+          initURL: '/signin',
           userProfile: null,
           authUser: null
         }
 
+      }
+      case authAction.CHECK_TOKEN: {
+        return {
+          ...state
+        }
+      }
+      case authAction.CHECK_TOKEN_SUCCESS: {
+        localStorage.setItem("token_id", action.payload.token);
+        return {
+          ...state,
+          userProfile: action.payload
+
+        }
+      }
+      case authAction.CHECK_TOKEN_FAILURE: {
+        return {
+          ...state,
+          userProfile: null,
+          authUser: null
+        }
       }
       // case SIGNIN_USER_SUCCESS: {
       //   return {

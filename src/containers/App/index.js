@@ -11,7 +11,7 @@ import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import {setInitUrl} from "appRedux/actions/Auth";
 import {onLayoutTypeChange, onNavStyleChange, setThemeType} from "appRedux/actions/Setting";
-
+import authAction from "../../appRedux/Auth/actions";
 import {
   LAYOUT_TYPE_BOXED,
   LAYOUT_TYPE_FRAMED,
@@ -86,7 +86,9 @@ const App = () => {
   const location = useLocation();
   const history = useHistory();
   const match = useRouteMatch();
-
+  useEffect(() => {
+    dispatch(authAction.checkToken())
+  }, [])
   useEffect(() => {
     if (isDirectionRTL) {
       document.documentElement.classList.add('rtl');
