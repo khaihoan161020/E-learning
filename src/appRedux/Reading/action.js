@@ -6,13 +6,13 @@ const readActions = {
     FETCH_DATA_READ_SUCCESS: DOCUMENT + "FETCH_DATA_READ_SUCCESS",
     FETCH_DATA_READ_FAILURE: DOCUMENT + "FETCH_DATA_READ_FAILURE",
 
-    // ADD_DATA_VOCAB: DOCUMENT + "ADD_DATA_VOCAB",
-    // ADD_DATA_VOCAB_SUCCESS: DOCUMENT + "ADD_DATA_VOCAB_SUCCESS",
-    // ADD_DATA_VOCAB_FAILURE: DOCUMENT + "ADD_DATA_VOCAB_FAILURE",
+    ADD_DATA_READ: DOCUMENT + "ADD_DATA_READ",
+    ADD_DATA_READ_SUCCESS: DOCUMENT + "ADD_DATA_READ_SUCCESS",
+    ADD_DATA_READ_FAILURE: DOCUMENT + "ADD_DATA_READ_FAILURE",
 
-    // EDIT_VOCAB: DOCUMENT + "EDIT_VOCAB",
-    // EDIT_VOCAB_SUCCESS: DOCUMENT + "EDIT_VOCAB_SUCCESS",
-    // EDIT_VOCAB_FAILURE: DOCUMENT + "EDIT_VOCAB_FAILURE",
+    EDIT_READ: DOCUMENT + "EDIT_READ",
+    EDIT_READ_SUCCESS: DOCUMENT + "EDIT_READ_SUCCESS",
+    EDIT_READ_FAILURE: DOCUMENT + "EDIT_READ_FAILURE",
 
     DELETE_READ: DOCUMENT + "DELETE_READ",
     DELETE_READ_SUCCESS: DOCUMENT + "DELETE_READ_SUCCESS",
@@ -29,18 +29,18 @@ const readActions = {
             payload: data
         })
     },
-    // addVocab: (data) => {
-    //     return ({
-    //         type: vocabActions.ADD_DATA_VOCAB,
-    //         payload: data
-    //     })
-    // },
-    // editVocab: (data) => {
-    //     return ({
-    //         type: vocabActions.EDIT_VOCAB,
-    //         payload: data
-    //     })
-    // },
+    addReadQues: (data) => {
+        return ({
+            type: readActions.ADD_DATA_READ,
+            payload: data
+        })
+    },
+    editReadQues: (data) => {
+        return ({
+            type: readActions.EDIT_READ,
+            payload: data
+        })
+    },
     deleteReadbyID: (data) => {
         return ({
             type: readActions.DELETE_READ,
