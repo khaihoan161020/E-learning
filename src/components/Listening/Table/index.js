@@ -39,7 +39,7 @@ const ListenTable = ({ params, setParams }) => {
       width: 300,
       render: (item) => {
         return <audio controls>
-            <source src={item}  />
+            <source src={item.url}  />
       </audio>
       }
     },
