@@ -3,10 +3,7 @@ import { Modal, Button, Form, Input, Select  } from 'antd';
 import IntlMessages from "../../../util/IntlMessages";
 import { FooterModal } from "./Modal.style"
 import { useSelector } from 'react-redux';
-import vocabActions from '../../../appRedux/Vocab/action';
 import { useDispatch } from 'react-redux';
-import { DateFormat, DateServerFormat } from '../../../util/dateFormat'
-import moment from 'moment';
 import { useEffect } from 'react';
 import readActions from '../../../appRedux/Reading/action';
 
@@ -17,7 +14,6 @@ const ReadingModal = ({}) => {
     const [form] = Form.useForm();
     const visibleModal = useSelector((state) => state.read.visibleModal)
 	const success = useSelector((state) => state.read.success);
-	// const user = useSelector((state) => state.user.user)
     const itemEdit = useSelector(state => state.read.itemEdit)
 
     const dispatch = useDispatch();
@@ -94,8 +90,7 @@ const ReadingModal = ({}) => {
 	}, [success])
     return (
         <Modal 
-            // title={user ? <IntlMessages id="modal.title.editUser"/> : <IntlMessages id="modal.title.newUser"/>}
-            title={'Add question'}
+            title={itemEdit ? <IntlMessages id="modal.title.editReading"/> : <IntlMessages id="modal.title.newReading"/>}
             visible={visibleModal}
             footer={null}    
             closable={false}
@@ -109,25 +104,25 @@ const ReadingModal = ({}) => {
                     <TextArea autoSize={{ minRows: 2, maxRows: 3 }} />
                 </Form.Item>
                 
-                <Form.Item name="ans1" label={<IntlMessages id="label.R_answer1" />} 
+                <Form.Item name="ans1" label={<IntlMessages id="label.answer" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
                 
-                <Form.Item name="ans2" label={<IntlMessages id="label.R_answer2" />} 
+                <Form.Item name="ans2" label={<IntlMessages id="label.answer" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
                 
-                <Form.Item name="ans3" label={<IntlMessages id="label.R_answer3" />} 
+                <Form.Item name="ans3" label={<IntlMessages id="label.answer" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
                 </Form.Item>
                 
-                <Form.Item name="ans4" label={<IntlMessages id="label.R_answer4" />} 
+                <Form.Item name="ans4" label={<IntlMessages id="label.answer" />} 
                     rules={[{ required: true }]}
                 >
                     <Input autoComplete='off' autoCorrect='true' />
@@ -137,10 +132,10 @@ const ReadingModal = ({}) => {
                     rules={[{ required: true }]}
                 >
                     <Select>
-                        <Option value="0">Answer 1</Option>
-                        <Option value="1">Answer 2</Option>
-                        <Option value="2">Answer 3</Option>
-                        <Option value="3">Answer 4</Option>
+                        <Option value="0"><IntlMessages id="label.answer" /> 1</Option>
+                        <Option value="1"><IntlMessages id="label.answer" /> 2</Option>
+                        <Option value="2"><IntlMessages id="label.answer" /> 3</Option>
+                        <Option value="3"><IntlMessages id="label.answer" /> 4</Option>
                     </Select>
                 </Form.Item>
 

@@ -349,6 +349,8 @@
   "label.vocab.search": "Search",
   "modal.title.newListening": "New Listening",
   "modal.title.editListening": "Edit Listening",
+  "modal.title.newReading": "New Reading Question",
+  "modal.title.editReading": "Edit Reading Question",
   "table.column.nameVocab": "Name",
   "table.column.typeVocab": "Type",
   "table.column.meanVocab": "Mean",
