@@ -17,6 +17,8 @@ const readActions = {
     DELETE_READ: DOCUMENT + "DELETE_READ",
     DELETE_READ_SUCCESS: DOCUMENT + "DELETE_READ_SUCCESS",
     DELETE_READ_FAILURE: DOCUMENT + "DELETE_READ_FAILURE",
+
+    NEW_GAME: DOCUMENT + "NEW_GAME",
     toggleModal: (data = null) => {
         return ({
             type: readActions.TOGGLE_MODAL,
@@ -45,6 +47,11 @@ const readActions = {
         return ({
             type: readActions.DELETE_READ,
             payload: data
+        })
+    },
+    newGameClient: () => {
+        return ({
+            type: readActions.NEW_GAME
         })
     }
 }

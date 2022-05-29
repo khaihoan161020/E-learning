@@ -319,6 +319,8 @@
   "button.search": "Search",
   "button.save": "Save",
   "button.close": "Close",
+  "button.newReading": "New Reading",
+  "button.preview": "Preview",
   "radio.active": "Acitve",
   "radio.disable": "Disable",
   "label.customFilter": "Custome Filter",

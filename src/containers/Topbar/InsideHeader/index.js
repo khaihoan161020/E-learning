@@ -55,7 +55,7 @@ const InsideHeader = () => {
 
   return (
     <div className="gx-header-horizontal gx-header-horizontal-dark gx-inside-header-horizontal">
-      <div className="gx-header-horizontal-top">
+      {/* <div className="gx-header-horizontal-top">
         <div className="gx-container">
           <div className="gx-header-horizontal-top-flex">
             <div className="gx-header-horizontal-top-left">
@@ -68,8 +68,7 @@ const InsideHeader = () => {
             </ul>
           </div>
         </div>
-      </div>
-
+      </div> */}
       <Header
         className="gx-header-horizontal-main">
         <div className="gx-container">

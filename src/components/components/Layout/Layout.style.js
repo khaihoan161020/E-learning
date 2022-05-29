@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 const MainLayout = styled.div`
+z-index: 9;
+position: relative;
 padding: 10px;
 margin: 9px;
 min-height: 81vh;

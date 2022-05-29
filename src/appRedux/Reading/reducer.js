@@ -5,7 +5,8 @@ const initState = {
     loading: false,
     success: false,
     visibleModal: false,
-    itemEdit: null
+    itemEdit: null,
+    newGame: false
 }
 export default function readReducer(state = initState, action) { 
     switch (action.type) {
@@ -96,7 +97,11 @@ export default function readReducer(state = initState, action) {
                 loading: false,
                 success: false,
             }
-        
+        case readActions.NEW_GAME:
+            return {
+                ...state,
+                newGame: true
+            }
         default: 
             return state;
     }

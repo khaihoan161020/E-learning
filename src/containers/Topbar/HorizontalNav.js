@@ -83,15 +83,21 @@ const HorizontalNav = () => {
 
       </SubMenu>
 
-      <SubMenu popupClassName={getNavStyleSubMenuClass(navStyle)} key="in-built-apps"
-               title={<IntlMessages id="sidebar.inBuiltApp"/>}>
-
-        <Menu.Item key="in-built-apps/mail">
-          <Link to="/in-built-apps/mail"><i className="icon icon-email"/><IntlMessages
-            id="sidebar.mailApp"/></Link>
-        </Menu.Item>
-
-        <Menu.Item key="in-built-apps/todo">
+      {/* <SubMenu  key="in-built-apps"
+               title={<IntlMessages id="sidebar.inBuiltApp"/>}> */}
+        
+       <li className="ant-menu-overflow-item ant-menu-submenu ant-menu-submenu-horizontal">
+         <div className="ant-menu-submenu-title">
+           <span className="ant-menu-title-content">
+            <Link style={{color: '#fff'}} to="/app/reading">
+              <IntlMessages
+              id="sidebar.reading"/></Link>
+           </span>
+         </div>
+      
+       </li>
+          
+        {/* <Menu.Item key="in-built-apps/todo">
           <Link to="/in-built-apps/todo"><i
             className="icon icon-check-square-o"/><IntlMessages
             id="sidebar.todoApp"/></Link>
@@ -134,9 +140,9 @@ const HorizontalNav = () => {
             <i className="icon icon-icon"/>
             <IntlMessages id="sidebar.crud"/>
           </Link>
-        </Menu.Item>
+        </Menu.Item> */}
 
-      </SubMenu>
+      {/* </SubMenu> */}
 
       <SubMenu popupClassName={getNavStyleSubMenuClass(navStyle)} key="components"
                title={<IntlMessages id="sidebar.components"/>}>

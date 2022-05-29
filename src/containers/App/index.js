@@ -16,6 +16,7 @@ import {
   LAYOUT_TYPE_BOXED,
   LAYOUT_TYPE_FRAMED,
   LAYOUT_TYPE_FULL,
+  NAV_STYLE_FIXED,
   NAV_STYLE_ABOVE_HEADER,
   NAV_STYLE_BELOW_HEADER,
   NAV_STYLE_DARK_HORIZONTAL,
@@ -79,7 +80,9 @@ const App = () => {
   const themeColor = useSelector(({settings}) => settings.themeColor);
   const themeType = useSelector(({settings}) => settings.themeType);
   const isDirectionRTL = useSelector(({settings}) => settings.isDirectionRTL);
+  const user = useSelector(({auth}) => auth.userProfile?.user )
 
+  console.log(user)
   const dispatch = useDispatch();
   const {authUser, initURL} = useSelector(({auth}) => auth);
 
@@ -134,7 +137,16 @@ const App = () => {
       dispatch(onLayoutTypeChange(params.get('layout-type')));
     }
   }, [location.search, dispatch, initURL, location.pathname]);
-
+  useEffect(()=>{
+    if(user){
+      if(user.isAdmin) {
+        dispatch(onNavStyleChange(NAV_STYLE_FIXED))
+      }
+      else dispatch(onNavStyleChange(NAV_STYLE_INSIDE_HEADER_HORIZONTAL))
+    }
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
   useEffect(() => {
     setLayoutType(layoutType);
     setNavStyle(navStyle);
@@ -144,13 +156,13 @@ const App = () => {
     if (location.pathname === '/') {
       if (authUser === null) {
         history.push('/signin');
-      } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
+      } else if ((initURL === '' || initURL === '/' || initURL === '/signin') && user?.isAdmin) {
         history.push('/dashboard/user');
       } else {
-        history.push(initURL);
+        history.push('/app/reading');
       }
     }
-  }, [authUser, initURL, location, history]);
+  }, [authUser, initURL, location, history, user]);
 
   const currentAppLocale = AppLocale[locale.locale];
 

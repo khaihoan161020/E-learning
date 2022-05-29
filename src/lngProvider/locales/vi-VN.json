@@ -317,6 +317,8 @@
   "button.search": "Tìm kiếm",
   "button.save": "Save",
   "button.close": "Close",
+  "button.newReading": "New Reading",
+  "button.preview": "Preview",
   "radio.active": "Acitve",
   "radio.disable": "Disable",
   "label.customFilter": "Lọc",
