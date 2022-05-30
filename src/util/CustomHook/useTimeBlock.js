@@ -5,7 +5,6 @@ const TimeBlock = (second) => {
     const [flag, setFlag] = useState(false)
     useEffect(() => {
         const sleepTime = setTimeout(() => setTime(prev => prev - 1), 1000)
-        console.log(time)
         if(time === 0) {
             clearTimeout(sleepTime)
             setFlag(true)

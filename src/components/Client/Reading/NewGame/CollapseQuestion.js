@@ -7,20 +7,41 @@ const text = `
 `;
 const { Panel } = Collapse;
 const correctAns = {
-    backgroundColor: 'rgba(82,196,26, 1)',
-    color: '#ffff'
-}
+  backgroundColor: "rgba(82,196,26, 1)",
+  color: "#ffff",
+};
+const nonPickAns = {
+  backgroundColor: "rgba(82,196,26, .4)",
+  color: "#ffff",
+};
 const inCorrectAns = {
-    backgroundColor: 'red',
-    color: '#ffff'
-}
-const CollapseQuestion = ({userPick}) => {
+  backgroundColor: "rgba(255, 0, 0, .7)",
+  color: "#ffff",
+};
+const CollapseQuestion = ({ userPick }) => {
+  const colorAnswer = (item, ans) => {
+    // if(item?.answerId) return userAns
+    if (ans.isCorrect  ) {
+      if (item?.answerId)
+        return correctAns
+      else return nonPickAns
+    }
+    if (item?.answerId === ans._id && !ans.isCorrect) {
+       return inCorrectAns;
+    }
+  };
   return (
-    <Collapse defaultActiveKey={["1"]} style={{width: '100%'}}>
-        {userPick.map(item => <Panel header={item.question} key={item.id}>
-            {item.data.map(ans => <p style={ ans.isCorrect ? correctAns : null} key={ans._id}> {ans.answer} </p>)}
-        </Panel>)}
-        
+    <Collapse defaultActiveKey={["1"]} style={{ width: "100%" }}>
+      {userPick.map((item) => (
+        <Panel header={item.question} key={item.id}>
+          {item.data.map((ans) => (
+            <p style={colorAnswer(item, ans)} key={ans._id}>
+              {" "}
+              {ans.answer}{" "}
+            </p>
+          ))}
+        </Panel>
+      ))}
     </Collapse>
   );
 };

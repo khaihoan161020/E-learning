@@ -24,10 +24,16 @@ const ReadGame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const userPick = [...data];
     const handleClickAns = (e) => {
-        userPick[questionIndex].answerId = e.target.dataset.ansid; //answer ID user pick
-        if (data.length === questionIndex + 1) setEndOfGame(true);
-        setQuestionIndex((prev) => prev + 1);
+        console.log('count', e.target.dataset.ansid, questionIndex)
         setTime(TIME_CLOCK)
+        userPick[questionIndex].answerId = e.target.dataset.ansid; //answer ID user pick
+        if (data.length === questionIndex + 1) {
+            setEndOfGame(true);
+            return
+        }
+        else setQuestionIndex((prev) => prev + 1);
+        
+        console.log(userPick)
     };
     const percentProgressBar = () => {
         const countQuestion = data.length;
@@ -47,13 +53,11 @@ const ReadGame = () => {
         if(endOfGame) {
             setTime(0)
             setFlag(false)
-            console.log('here stop')
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[endOfGame])
     useEffect(() => {
-        console.log(flag)
-        if (flag) {
+        if (time === 0 && flag && !endOfGame) {
             console.log('questionIndex', questionIndex)
             userPick[questionIndex].answerId = null;
             if (data.length === questionIndex + 1){
@@ -104,7 +108,7 @@ const ReadGame = () => {
                 title="Great, we have done all the question!"
                 subTitle={`You has been correct ${numberCorrectAnswer()}/${data.length}`}
                 extra={[
-                    <Button type="primary" key="console" onClick={() => setVisiblePreview(true)}>
+                    <Button type="primary" key="console" onClick={() => setVisiblePreview(prev => !prev)}>
                     <IntlMessages id="button.preview"/>
                     </Button>,
                     <Button key="buy">Buy Again</Button>,
