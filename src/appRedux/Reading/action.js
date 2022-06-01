@@ -19,6 +19,13 @@ const readActions = {
     DELETE_READ_FAILURE: DOCUMENT + "DELETE_READ_FAILURE",
 
     NEW_GAME: DOCUMENT + "NEW_GAME",
+
+    FETCH_QUESTION_QUIZ: DOCUMENT + "FETCH_QUESTION_QUIZ",
+    FETCH_QUESTION_QUIZ_SUCCESS: DOCUMENT + "FETCH_QUESTION_QUIZ_SUCCESS",
+    FETCH_QUESTION_QUIZ_FAILURE: DOCUMENT + "FETCH_QUESTION_QUIZ_FAILURE",
+
+    POST_QUESTION_QUIZ: DOCUMENT + "POST_QUESTION_QUIZ",
+    POST_QUESTION_QUIZ_SUCCESS: DOCUMENT + "POST_QUESTION_QUIZ_SUCCESS",
     toggleModal: (data = null) => {
         return ({
             type: readActions.TOGGLE_MODAL,
@@ -53,6 +60,18 @@ const readActions = {
         return ({
             type: readActions.NEW_GAME
         })
+    },
+    fetchQuizzRead: () => {
+        return ({
+            type: readActions.FETCH_QUESTION_QUIZ
+        })
+    },
+    postDataQuizzRead: (data) => {
+        return ({
+            type: readActions.POST_QUESTION_QUIZ,
+            payload: data
+        })
     }
+    
 }
 export default readActions;

@@ -109,12 +109,59 @@ function* deleteRead({payload}) {
         }
     
 }
-
+function* fetchQuizRead() {
+    try {
+        let res = yield callAPI(
+            `reading/quiz`,
+            "POST",
+            null
+        );
+        
+        if (res && res.status === 1) {
+            yield put({ type: readActions.FETCH_QUESTION_QUIZ_SUCCESS, payload: res.data });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
+        
+    catch (error) {
+            notification("error", error.message, "");
+            yield put({
+                type: readActions.FETCH_QUESTION_QUIZ_FAILURE,
+            });
+        }
+    
+}
+function* postdataQuizRead({payload}) {
+    try {
+        let res = yield callAPI(
+            `reading/postQuiz`,
+            "POST",
+            payload
+        );
+        
+        if (res && res.status === 1) {
+            yield put({ type: readActions.POST_QUESTION_QUIZ_SUCCESS });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
+        
+    catch (error) {
+            notification("error", error.message, "");
+        }
+    
+}
 export default function* readSaga() {
     yield all([
         fork(fetchReadLoad),
         takeLatest(readActions.ADD_DATA_READ, addReadList),
         takeEvery(readActions.EDIT_READ, editReadList),
-        takeEvery(readActions.DELETE_READ, deleteRead)
+        takeEvery(readActions.DELETE_READ, deleteRead),
+        takeEvery(readActions.FETCH_QUESTION_QUIZ, fetchQuizRead),
+        takeEvery(readActions.POST_QUESTION_QUIZ, postdataQuizRead
+            ),
     ]);
 }

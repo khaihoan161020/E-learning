@@ -14,30 +14,38 @@ import {
   Preview,
   ClockTime
 } from "./NewGame.style";
-import { data } from "./dataTest";
+// import { data } from "./dataTest";
+import readActions from "../../../../appRedux/Reading/action"
+import { useDispatch } from 'react-redux';
 const TIME_CLOCK = 5 ; // 5s
 const ReadGame = () => {
     const [questionIndex, setQuestionIndex] = useState(0);
     const [endOfGame, setEndOfGame] = useState(false);
     const [visiblePreview, setVisiblePreview] = useState(false);
     const [time, setTime ,flag, setFlag] = useTimeBlock(TIME_CLOCK)
+    const dispatch = useDispatch()
+
+    const quizQuestion = useSelector((state) => state.read.quizQuestion)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const userPick = [...data];
+    const userPick = quizQuestion ? [...quizQuestion] : [];
+
+    
     const handleClickAns = (e) => {
         console.log('count', e.target.dataset.ansid, questionIndex)
         setTime(TIME_CLOCK)
         userPick[questionIndex].answerId = e.target.dataset.ansid; //answer ID user pick
-        if (data.length === questionIndex + 1) {
+        if (quizQuestion.length === questionIndex + 1) {
             setEndOfGame(true);
-            return
+            
         }
-        else setQuestionIndex((prev) => prev + 1);
+         setQuestionIndex((prev) => prev + 1);
         
         console.log(userPick)
     };
     const percentProgressBar = () => {
-        const countQuestion = data.length;
-        return (questionIndex / countQuestion) * 100;
+        const countQuestion = quizQuestion?.length;
+        return ((questionIndex ) / countQuestion) * 100;
     };
 
     const numberCorrectAnswer = () => {
@@ -60,7 +68,7 @@ const ReadGame = () => {
         if (time === 0 && flag && !endOfGame) {
             console.log('questionIndex', questionIndex)
             userPick[questionIndex].answerId = null;
-            if (data.length === questionIndex + 1){
+            if (quizQuestion.length === questionIndex + 1){
                 setEndOfGame(true);
 
             }
@@ -72,6 +80,14 @@ const ReadGame = () => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [flag])
+
+
+    const endGame = () => {
+        const params = userPick.map(item => ({ questionId: item._id, answerId: item.answerId}))
+        const countCorrect = numberCorrectAnswer();
+        dispatch(readActions.postDataQuizzRead({listQuiz :params , countCorrect: countCorrect}))
+        dispatch(readActions.newGameClient())
+    }
     return (
         <WrapLayout>
         <ProgressBar percent={percentProgressBar()}> </ProgressBar>
@@ -83,11 +99,11 @@ const ReadGame = () => {
         </Row>
         <Row>
             {/* Quiz Game */}
-            {!endOfGame && (
+            {!endOfGame && quizQuestion && (
             <WrapNewGame>
-                <Question>{data[questionIndex].question}</Question>
+                <Question>{quizQuestion[questionIndex].question}</Question>
                 <Row style={{ width: "100%" }} justify="center">
-                {data[questionIndex].data.map((item) => (
+                {quizQuestion[questionIndex].data.map((item) => (
                     <Answer span={10}>
                     <span
                         onClick={(e) => handleClickAns(e)}
@@ -100,18 +116,20 @@ const ReadGame = () => {
                 </Row>
             </WrapNewGame>
             )}
-           {endOfGame && (
+           {endOfGame && quizQuestion && (
             <Preview>
                 <Result
                 icon={<SmileOutlined />}
                 status="success"
                 title="Great, we have done all the question!"
-                subTitle={`You has been correct ${numberCorrectAnswer()}/${data.length}`}
+                subTitle={`You has been correct ${numberCorrectAnswer()}/${quizQuestion.length}`}
                 extra={[
                     <Button type="primary" key="console" onClick={() => setVisiblePreview(prev => !prev)}>
-                    <IntlMessages id="button.preview"/>
+                        <IntlMessages id="button.preview"/>
                     </Button>,
-                    <Button key="buy">Buy Again</Button>,
+                    <Button key="buy" onClick={() => endGame() }>
+                        <IntlMessages id="button.back"/>
+                    </Button>,
                 ]}
                 />
             </Preview>

@@ -6,7 +6,8 @@ const initState = {
     success: false,
     visibleModal: false,
     itemEdit: null,
-    newGame: false
+    newGame: false,
+    quizQuestion: null
 }
 export default function readReducer(state = initState, action) { 
     switch (action.type) {
@@ -100,7 +101,41 @@ export default function readReducer(state = initState, action) {
         case readActions.NEW_GAME:
             return {
                 ...state,
-                newGame: true
+                newGame: !state.newGame
+            }
+        case readActions.FETCH_QUESTION_QUIZ:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+                quizQuestion: null
+            }
+        case readActions.FETCH_QUESTION_QUIZ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                quizQuestion: action.payload
+            }
+        case readActions.FETCH_QUESTION_QUIZ_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                quizQuestion: null
+            }
+        case readActions.POST_QUESTION_QUIZ:
+            return {
+                ...state,
+                loading: true,
+                success: true,
+                quizQuestion: action.payload
+            }
+        case readActions.POST_QUESTION_QUIZ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
             }
         default: 
             return state;
