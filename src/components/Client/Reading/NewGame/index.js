@@ -83,9 +83,13 @@ const ReadGame = () => {
 
 
     const endGame = () => {
-        const params = userPick.map(item => ({ questionId: item._id, answerId: item.answerId}))
-        const countCorrect = numberCorrectAnswer();
-        dispatch(readActions.postDataQuizzRead({listQuiz :params , countCorrect: countCorrect}))
+        // const params = userPick.map(item => ({ questionId: item._id, answerId: item.answerId}))
+        const params = userPick.map(item => {
+            const ansPick = item.data.find(ans => ans._id === item.answerId)
+            console.log(ansPick)
+            return { questionId: item._id, answerId: item.answerId, correctPick: ansPick ? ansPick?.isCorrect : null}
+        })
+        dispatch(readActions.postDataQuizzRead({listQuiz :params }))
         dispatch(readActions.newGameClient())
     }
     return (

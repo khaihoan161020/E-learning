@@ -35,7 +35,8 @@ const ReadingModal = ({}) => {
 
         if (values.question)
 			readReq.question = values.question
-
+        if (values.solution)
+			readReq.solution = values.solution
         if (values.ans1)
 			readReq.data.push({
                 answer: values.ans1,
@@ -138,7 +139,11 @@ const ReadingModal = ({}) => {
                         <Option value="3"><IntlMessages id="label.answer" /> 4</Option>
                     </Select>
                 </Form.Item>
-
+                <Form.Item name="solution" label={<IntlMessages id="label.R_solution" />} 
+                    rules={[{ required: true }]}
+                >
+                    <TextArea autoSize={{ minRows: 2, maxRows: 5 }} />
+                </Form.Item>
                 <FooterModal >
                     <Button type='primary' htmlType="submit">
                         <IntlMessages id="button.save" />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Collapse } from "antd";
+import { Collapse, Divider  } from "antd";
 const text = `
   A dog is a type of domesticated animal.
   Known for its loyalty and faithfulness,
@@ -40,6 +40,9 @@ const CollapseQuestion = ({ userPick }) => {
               {ans.answer}{" "}
             </p>
           ))}
+          <div style={{padding: 10, backgroundColor: '#038fde', color: '#fff'}}>
+            {item.solution}
+          </div>
         </Panel>
       ))}
     </Collapse>

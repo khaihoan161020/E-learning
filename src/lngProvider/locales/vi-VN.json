@@ -336,6 +336,7 @@
   "label.V_type": "Loại từ",
   "label.V_mean": "Nghĩa",
   "label.R_question": "Câu hỏi",
+  "label.R_solution": "Giải thích",
   "label.R_answer1": "Đáp án 1",
   "label.R_answer2": "Đáp án 2",
   "label.R_answer3": "Đáp án 3",
@@ -353,6 +354,7 @@
   "table.column.questionRead": "Câu hỏi",
   "table.column.answerRead": "Đáp án",
   "table.column.actionRead": "Thao tác",
+  "modal.title.preview": "Preview",
   "modal.title.newUser": "Thêm tài khoản",
   "modal.title.editUser": "Chỉnh sửa tài khoản",
   "modal.title.editVocab": "Chỉnh sửa từ vựng",
@@ -369,5 +371,7 @@
   "table.column.action": "Thao tác",
   "table.column.question": "Câu hỏi",
   "table.column.audio": "Audio",
-  "table.column.answer": "Đáp án"
+  "table.column.answer": "Đáp án",
+  "table.column.correct": "Correct",
+  "table.column.yourAnswer": "Đáp án của bạn"
 }

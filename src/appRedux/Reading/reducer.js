@@ -5,9 +5,12 @@ const initState = {
     loading: false,
     success: false,
     visibleModal: false,
+    visibleModalPreview: false,
     itemEdit: null,
     newGame: false,
-    quizQuestion: null
+    quizQuestion: null,
+    dataQuizUser: [],
+    quizPreviewItem: null,
 }
 export default function readReducer(state = initState, action) { 
     switch (action.type) {
@@ -19,7 +22,13 @@ export default function readReducer(state = initState, action) {
                 itemEdit: action.payload,
                 success: false
             }
-
+        case readActions.TOGGLE_MODAL_PREVIEW_QUIZ:
+            return {
+                ...state,
+                visibleModalPreview: !state.visibleModalPreview,
+                quizPreviewItem: action.payload,
+                success: false
+            }
         // Fetch reading data
         case readActions.FETCH_DATA_READ:
             return {
@@ -137,6 +146,19 @@ export default function readReducer(state = initState, action) {
                 loading: false,
                 success: true,
             }
+        case readActions.GET_QUESTION_QUIZ_USER:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+                dataQuizUser: [],
+            }
+        case readActions.GET_QUESTION_QUIZ_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                dataQuizUser: action.payload,
+                }
         default: 
             return state;
     }

@@ -26,9 +26,21 @@ const readActions = {
 
     POST_QUESTION_QUIZ: DOCUMENT + "POST_QUESTION_QUIZ",
     POST_QUESTION_QUIZ_SUCCESS: DOCUMENT + "POST_QUESTION_QUIZ_SUCCESS",
+
+    GET_QUESTION_QUIZ_USER: DOCUMENT + "GET_QUESTION_QUIZ_USER",
+    GET_QUESTION_QUIZ_USER_SUCCESS: DOCUMENT + "GET_QUESTION_QUIZ_USER_SUCCESS",
+
+    TOGGLE_MODAL_PREVIEW_QUIZ: DOCUMENT + "TOGGLE_MODAL_PREVIEW_QUIZ",
+
     toggleModal: (data = null) => {
         return ({
             type: readActions.TOGGLE_MODAL,
+            payload: data
+        })
+    },
+    toggleModalPreview: (data = null) => {
+        return ({
+            type: readActions.TOGGLE_MODAL_PREVIEW_QUIZ,
             payload: data
         })
     },
@@ -69,6 +81,12 @@ const readActions = {
     postDataQuizzRead: (data) => {
         return ({
             type: readActions.POST_QUESTION_QUIZ,
+            payload: data
+        })
+    },
+    getQuizDataRead: (data) => {
+        return ({
+            type: readActions.GET_QUESTION_QUIZ_USER,
             payload: data
         })
     }

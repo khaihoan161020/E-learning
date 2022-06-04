@@ -154,6 +154,27 @@ function* postdataQuizRead({payload}) {
         }
     
 }
+function* getDataQuizRead({payload}) {
+    try {
+        let res = yield callAPI(
+            `reading/getDataQuiz`,
+            "POST",
+            payload
+        );
+        
+        if (res && res.status === 1) {
+            yield put({ type: readActions.GET_QUESTION_QUIZ_USER_SUCCESS, payload: res.data });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
+        
+    catch (error) {
+            notification("error", error.message, "");
+        }
+    
+}
 export default function* readSaga() {
     yield all([
         fork(fetchReadLoad),
@@ -161,7 +182,7 @@ export default function* readSaga() {
         takeEvery(readActions.EDIT_READ, editReadList),
         takeEvery(readActions.DELETE_READ, deleteRead),
         takeEvery(readActions.FETCH_QUESTION_QUIZ, fetchQuizRead),
-        takeEvery(readActions.POST_QUESTION_QUIZ, postdataQuizRead
-            ),
+        takeEvery(readActions.POST_QUESTION_QUIZ, postdataQuizRead),
+        takeEvery(readActions.GET_QUESTION_QUIZ_USER, getDataQuizRead),
     ]);
 }
