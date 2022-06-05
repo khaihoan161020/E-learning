@@ -5,7 +5,11 @@ const initState = {
     loading: false,
     success: false,
     visibleModal: false,
-    itemEdit: null
+    itemEdit: null,
+    newGame: false,
+    quizQuestion: null,
+    dataQuizUser: [],
+    quizPreviewItem: null,
 }
 export default function vendorsReducer(state = initState, action) { 
     switch (action.type) {
@@ -14,6 +18,13 @@ export default function vendorsReducer(state = initState, action) {
                 ...state,
                 visibleModal: !state.visibleModal,
                 itemEdit: action.payload,
+                success: false
+            }
+        case listeningActions.TOGGLE_MODAL_PREVIEW_QUIZ:
+            return {
+                ...state,
+                visibleModalPreview: !state.visibleModalPreview,
+                quizPreviewItem: action.payload,
                 success: false
             }
         case listeningActions.FETCH_DATA:
@@ -88,6 +99,58 @@ export default function vendorsReducer(state = initState, action) {
                 loading: false,
                 success: false,
             }
+        case listeningActions.NEW_GAME:
+            return {
+                ...state,
+                newGame: !state.newGame
+            }
+        case listeningActions.FETCH_QUESTION_QUIZ:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+                quizQuestion: null
+            }
+        case listeningActions.FETCH_QUESTION_QUIZ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                quizQuestion: action.payload
+            }
+        case listeningActions.FETCH_QUESTION_QUIZ_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                quizQuestion: null
+            }
+        case listeningActions.POST_QUESTION_QUIZ:
+            return {
+                ...state,
+                loading: true,
+                success: true,
+                quizQuestion: action.payload
+            }
+        case listeningActions.POST_QUESTION_QUIZ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            }
+        case listeningActions.GET_QUESTION_QUIZ_USER:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+                dataQuizUser: [],
+            }
+        case listeningActions.GET_QUESTION_QUIZ_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                dataQuizUser: action.payload,
+                }
         default: 
             return state;
     }

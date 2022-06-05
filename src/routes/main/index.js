@@ -8,6 +8,7 @@ import asyncComponent from "../../util/asyncComponent";
 const Main = ({match}) => (
   <Switch>
     <Route path={`${match.url}/reading`} component={asyncComponent(() => import('./Reading'))}/>
+    <Route path={`${match.url}/listening`} component={asyncComponent(() => import('./Listening'))}/>
     <Route path={`${match.url}/widgets`} component={Widgets}/>
     <Route path={`${match.url}/metrics`} component={Metrics}/>
     <Route path={`${match.url}/layouts`} component={Layouts}/>

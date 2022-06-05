@@ -1,15 +1,15 @@
 import React from 'react'
 import { Row, Col, Button} from "antd"
 import IntlMessages from "../../../../util/IntlMessages";
-import readActions from "../../../../appRedux/Reading/action"
+import listeningActions from "../../../../appRedux/Listening/actions"
 import { useDispatch } from 'react-redux';
 const Feature = () => {
     const dispatch = useDispatch()
     const handleNewGame = () => {
         //fetch data newgame
-        dispatch(readActions.fetchQuizzRead())
+        dispatch(listeningActions.fetchQuizzRead())
         // new game
-        dispatch(readActions.newGameClient())
+        dispatch(listeningActions.newGameClient())
     }
     return (
             <Row>

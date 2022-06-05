@@ -6,14 +6,9 @@ import {
   Upload,
   Col,
   Row,
-  Switch,
-  Space,
-  Checkbox,
-  Radio,
+ Select
 } from "antd";
 import {
-  CheckOutlined,
-  CloseOutlined,
   DeleteOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
@@ -23,7 +18,6 @@ import { useSelector } from "react-redux";
 import listeningActions from "../../../appRedux/Listening/actions";
 import notification from "../../../components/Notification";
 import { useDispatch } from "react-redux";
-import { DateFormat, DateServerFormat } from "../../../util/dateFormat";
 import moment from "moment";
 import { useEffect, useState, useLayoutEffect } from "react";
 import axios from "axios";
@@ -31,6 +25,8 @@ import { FormWrap } from "./Modal.style";
 const ListeningModal = ({}) => {
   const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
+  const { Option } = Select
+  const { TextArea } = Input;
   const [error, setError] = useState(false);
   const [defaultFileList, setDefaultFileList] = useState([]);
   const [audioAsset, setAudioAsset] = useState(null);
@@ -42,6 +38,7 @@ const ListeningModal = ({}) => {
   const reqParam = {
     question: "",
     audio: "",
+    solution: "",
     data: [],
   };
   useEffect(() => {
@@ -52,7 +49,7 @@ const ListeningModal = ({}) => {
     const values = await form.validateFields();
     if (itemEdit) reqParam.id = itemEdit.id;
     if (values.question) reqParam.question = values.question;
-
+    if (values.solution) reqParam.solution = values.solution;
     if (audioAsset) reqParam.audio = audioAsset;
     if (values.ans1)
       reqParam.data.push({
@@ -115,6 +112,7 @@ const ListeningModal = ({}) => {
     formData.append("file", file);
     formData.append("upload_preset", "e-learning");
     formData.append("folder", "e-learning");
+
 
     try {
       if (error) {
@@ -284,7 +282,7 @@ const ListeningModal = ({}) => {
         </Row>
         <Row>
           <Col span={24}>
-            <Form.Item
+            {/* <Form.Item
               name="isCorrect"
               label={<IntlMessages id="label.isCorrect" />}
             >
@@ -294,10 +292,28 @@ const ListeningModal = ({}) => {
                 <Radio value="2">Answer 3</Radio>
                 <Radio value="3">Answer 4</Radio>
               </Radio.Group>
-            </Form.Item>
+            </Form.Item> */}
+            <Form.Item name="isCorrect" label={<IntlMessages id="label.R_isCorrect" />} 
+                    rules={[{ required: true }]}
+                >
+                    <Select>
+                        <Option value="0"><IntlMessages id="label.answer" /> 1</Option>
+                        <Option value="1"><IntlMessages id="label.answer" /> 2</Option>
+                        <Option value="2"><IntlMessages id="label.answer" /> 3</Option>
+                        <Option value="3"><IntlMessages id="label.answer" /> 4</Option>
+                    </Select>
+                </Form.Item>
           </Col>
         </Row>
-
+        <Row>
+          <Col span={24}>
+          <Form.Item name="solution" label={<IntlMessages id="label.R_solution" />} 
+                    rules={[{ required: true }]}
+                >
+                    <TextArea autoSize={{ minRows: 2, maxRows: 5 }} />
+                </Form.Item>
+          </Col>
+        </Row>
         <FooterModal>
           <Button type="primary" htmlType="submit">
             <IntlMessages id="button.save" />

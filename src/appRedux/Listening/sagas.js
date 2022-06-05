@@ -104,12 +104,80 @@ function* deleteListening({payload}) {
         }
     
 }
-
+function* fetchQuizRead() {
+    try {
+        let res = yield callAPI(
+            `listening/quiz`,
+            "POST",
+            null
+        );
+        
+        if (res && res.status === 1) {
+            yield put({ type: listeningActions.FETCH_QUESTION_QUIZ_SUCCESS, payload: res.data });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
+        
+    catch (error) {
+            notification("error", error.message, "");
+            yield put({
+                type: listeningActions.FETCH_QUESTION_QUIZ_FAILURE,
+            });
+        }
+    
+}
+function* postdataQuizRead({payload}) {
+    try {
+        let res = yield callAPI(
+            `listening/postQuiz`,
+            "POST",
+            payload
+        );
+        
+        if (res && res.status === 1) {
+            yield put({ type: listeningActions.POST_QUESTION_QUIZ_SUCCESS });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
+        
+    catch (error) {
+            notification("error", error.message, "");
+        }
+    
+}
+function* getDataQuizRead({payload}) {
+    try {
+        let res = yield callAPI(
+            `listening/getDataQuiz`,
+            "POST",
+            payload
+        );
+        
+        if (res && res.status === 1) {
+            yield put({ type: listeningActions.GET_QUESTION_QUIZ_USER_SUCCESS, payload: res.data });
+        }
+        else {
+            throw res // throw error into catch block
+        }
+    }
+        
+    catch (error) {
+            notification("error", error.message, "");
+        }
+    
+}
 export default function* listeningSaga() {
     yield all([
         fork(fetchUserLoad),
         takeLatest(listeningActions.ADD_DATA_LISTENING, addListeningDashboard),
         takeEvery(listeningActions.EDIT_LISTENING, editListening),
-        takeEvery(listeningActions.DELETE_LISTENING, deleteListening)
+        takeEvery(listeningActions.DELETE_LISTENING, deleteListening),
+        takeEvery(listeningActions.FETCH_QUESTION_QUIZ, fetchQuizRead),
+        takeEvery(listeningActions.POST_QUESTION_QUIZ, postdataQuizRead),
+        takeEvery(listeningActions.GET_QUESTION_QUIZ_USER, getDataQuizRead),
     ]);
 }
