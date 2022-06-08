@@ -155,6 +155,7 @@ const ListeningModal = ({}) => {
         ans2: itemEdit.data[1].answer,
         ans3: itemEdit.data[2].answer,
         ans4: itemEdit.data[3].answer,
+        solution: itemEdit.solution,
         isCorrect: indexCorrect.toString(),
       });
       setAudioAsset(itemEdit.audio);

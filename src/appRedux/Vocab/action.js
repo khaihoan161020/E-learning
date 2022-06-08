@@ -17,6 +17,18 @@ const vocabActions = {
     DELETE_VOCAB: DOCUMENT + "DELETE_VOCAB",
     DELETE_VOCAB_SUCCESS: DOCUMENT + "DELETE_VOCAB_SUCCESS",
     DELETE_VOCAB_FAILURE: DOCUMENT + "DELETE_VOCAB_FAILURE",
+
+    NEW_GAME: DOCUMENT + "NEW_GAME",
+
+    FETCH_QUESTION_QUIZ: DOCUMENT + "FETCH_QUESTION_QUIZ",
+    FETCH_QUESTION_QUIZ_SUCCESS: DOCUMENT + "FETCH_QUESTION_QUIZ_SUCCESS",
+    FETCH_QUESTION_QUIZ_FAILURE: DOCUMENT + "FETCH_QUESTION_QUIZ_FAILURE",
+
+    POST_QUESTION_QUIZ: DOCUMENT + "POST_QUESTION_QUIZ",
+    POST_QUESTION_QUIZ_SUCCESS: DOCUMENT + "POST_QUESTION_QUIZ_SUCCESS",
+
+    GET_QUESTION_QUIZ_USER: DOCUMENT + "GET_QUESTION_QUIZ_USER",
+    GET_QUESTION_QUIZ_USER_SUCCESS: DOCUMENT + "GET_QUESTION_QUIZ_USER_SUCCESS",
     toggleModal: (data = null) => {
         return ({
             type: vocabActions.TOGGLE_MODAL,
@@ -44,6 +56,28 @@ const vocabActions = {
     deleteVocabbyID: (data) => {
         return ({
             type: vocabActions.DELETE_VOCAB,
+            payload: data
+        })
+    },
+    newGameClient: () => {
+        return ({
+            type: vocabActions.NEW_GAME
+        })
+    },
+    fetchQuizzRead: () => {
+        return ({
+            type: vocabActions.FETCH_QUESTION_QUIZ
+        })
+    },
+    postDataQuizzRead: (data) => {
+        return ({
+            type: vocabActions.POST_QUESTION_QUIZ,
+            payload: data
+        })
+    },
+    getQuizDataRead: (data) => {
+        return ({
+            type: vocabActions.GET_QUESTION_QUIZ_USER,
             payload: data
         })
     }

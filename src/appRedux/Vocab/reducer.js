@@ -5,7 +5,11 @@ const initState = {
     loading: false,
     success: false,
     visibleModal: false,
-    vocab: null
+    vocab: null,
+    newGame: false,
+    quizQuestion: null,
+    dataQuizUser: [],
+    quizPreviewItem: null,
 }
 export default function vocabReducer(state = initState, action) { 
     switch (action.type) {
@@ -96,7 +100,58 @@ export default function vocabReducer(state = initState, action) {
                 loading: false,
                 success: false,
             }
-        
+        case vocabActions.NEW_GAME:
+            return {
+                ...state,
+                newGame: !state.newGame
+            }
+        case vocabActions.FETCH_QUESTION_QUIZ:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+                quizQuestion: null
+            }
+        case vocabActions.FETCH_QUESTION_QUIZ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                quizQuestion: action.payload
+            }
+        case vocabActions.FETCH_QUESTION_QUIZ_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                quizQuestion: null
+            }
+        case vocabActions.POST_QUESTION_QUIZ:
+            return {
+                ...state,
+                loading: true,
+                success: true,
+                quizQuestion: action.payload
+            }
+        case vocabActions.POST_QUESTION_QUIZ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+            }
+        case vocabActions.GET_QUESTION_QUIZ_USER:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+                dataQuizUser: [],
+            }
+        case vocabActions.GET_QUESTION_QUIZ_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                dataQuizUser: action.payload,
+                }
         default: 
             return state;
     }

@@ -85,7 +85,16 @@ const HorizontalNav = () => {
 
       {/* <SubMenu  key="in-built-apps"
                title={<IntlMessages id="sidebar.inBuiltApp"/>}> */}
-        
+      <li className="ant-menu-overflow-item ant-menu-submenu ant-menu-submenu-horizontal">
+         <div className="ant-menu-submenu-title">
+           <span className="ant-menu-title-content">
+            <Link style={{color: '#fff'}} to="/app/vocab">
+              <IntlMessages
+              id="sidebar.vocab"/></Link>
+           </span>
+         </div>
+       </li>
+
        <li className="ant-menu-overflow-item ant-menu-submenu ant-menu-submenu-horizontal">
          <div className="ant-menu-submenu-title">
            <span className="ant-menu-title-content">
@@ -94,8 +103,8 @@ const HorizontalNav = () => {
               id="sidebar.reading"/></Link>
            </span>
          </div>
-      
        </li>
+
        <li className="ant-menu-overflow-item ant-menu-submenu ant-menu-submenu-horizontal">
          <div className="ant-menu-submenu-title">
            <span className="ant-menu-title-content">
