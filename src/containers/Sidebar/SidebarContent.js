@@ -52,17 +52,17 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
             selectedKeys={[selectedKeys]}
             theme={themeType === THEME_TYPE_LITE ? 'lite' : 'dark'}
             mode="inline">
-
-            <MenuItemGroup key="main" className="gx-menu-group" title={<IntlMessages id="sidebar.main"/>}>
+              <Menu.Item key="main/dashboard/crypto">
+                  <Link to="/main/dashboard/crypto">
+                  <i className="icon icon-widgets"/>
+                    <span><IntlMessages id="sidebar.dashboard"/></span>
+                  </Link>
+                </Menu.Item>
+            {/* <MenuItemGroup key="main" className="gx-menu-group" title={<IntlMessages id="sidebar.main"/>}>
               <SubMenu key="dashboard" popupClassName={getNavStyleSubMenuClass(navStyle)}
                        title={<span> <i className="icon icon-dasbhoard"/>
                          <span><IntlMessages id="sidebar.dashboard"/></span></span>}>
-                <Menu.Item key="main/dashboard/crypto">
-                  <Link to="/main/dashboard/crypto">
-                    <i className="icon icon-crypto"/>
-                    <span><IntlMessages id="sidebar.dashboard.crypto"/></span>
-                  </Link>
-                </Menu.Item>
+               
                 <Menu.Item key="main/dashboard/crm">
                   <Link to="/main/dashboard/crm">
                     <i className="icon icon-crm"/>
@@ -92,7 +92,7 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
                   <span> <IntlMessages id="sidebar.layouts"/></span></Link>
               </Menu.Item>
 
-            </MenuItemGroup>
+            </MenuItemGroup> */}
 
             <MenuItemGroup key="in-built-apps" className="gx-menu-group"
                            title={<IntlMessages id="sidebar.inBuiltApp"/>}>
@@ -122,7 +122,7 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
                   <i className="icon icon-chat-bubble -flex-column-reverse"/><span>
                   <IntlMessages id="sidebar.listening"/></span></Link>
               </Menu.Item>
-              <Menu.Item key="in-built-apps/mail">
+              {/* <Menu.Item key="in-built-apps/mail">
                 <Link to="/in-built-apps/mail"><i className="icon icon-email"/><span><IntlMessages
                   id="sidebar.mailApp"/></span></Link>
               </Menu.Item>
@@ -158,9 +158,9 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
                 <Link to="/in-built-apps/firebase-crud"><i
                   className="icon icon-icon"/><span><IntlMessages
                   id="sidebar.crud"/></span></Link>
-              </Menu.Item>
+              </Menu.Item> */}
             </MenuItemGroup>
-
+{/* 
             <MenuItemGroup key="social-apps" className="gx-menu-group" title={<IntlMessages id="sidebar.social"/>}>
               <Menu.Item key="social-apps/profile">
                 <Link to="/social-apps/profile">
@@ -961,7 +961,7 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
                 </Link>
               </Menu.Item>
 
-            </MenuItemGroup>
+            </MenuItemGroup> */}
 
           </Menu>
         </CustomScrollbars>
