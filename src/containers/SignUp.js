@@ -20,7 +20,7 @@ import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
 import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
 import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
 import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
-
+import userAction from '../../src/appRedux/User/actions'
 const FormItem = Form.Item;
 const loginStyle = {
   backgroundImage:
@@ -30,13 +30,17 @@ const descriptionLogin = {
   fontSize: 20,
   margin: 0,
 };
+
+
 const SignUp = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [form] = Form.useForm()
   const { loader, alertMessage, showMessage, authUser } = useSelector(
     ({ auth }) => auth
   );
-
+  
+  const success = useSelector((state) => state.user.success)
   useEffect(() => {
     if (showMessage) {
       setTimeout(() => {
@@ -51,10 +55,21 @@ const SignUp = (props) => {
   const onFinishFailed = (errorInfo) => {};
 
   const onFinish = (values) => {
-    dispatch(showAuthLoader());
-    dispatch(userSignUp(values));
-  };
+    // dispatch(showAuthLoader());
+    // dispatch(userSignUp(values));
+    console.log(values)
 
+    dispatch(userAction.addUser({
+      username: values.username,
+      password: values.password
+    }))
+  };
+  useEffect(() => {
+    if(success) {
+      form.resetFields()
+      history.push("/signin")
+    }
+  }, [success])
   return (
     <div className="gx-app-login-wrap" style={loginStyle}>
       <div className="gx-app-login-container">
@@ -83,36 +98,37 @@ const SignUp = (props) => {
               onFinishFailed={onFinishFailed}
               className="gx-signin-form gx-form-row0"
             >
-              <FormItem
-                rules={[
-                  { required: true, message: "Please input your username!" },
-                ]}
-                name="Username"
-              >
-                <Input placeholder="Username" />
-              </FormItem>
+              <Form.Item name="username"  
+                    rules={[{ required: true },
+                            {pattern: /^\S*$/, 
+                            message: <IntlMessages id="regex.notAllowSpace" />}]}>
+                    <Input placeholder="Username"  autoComplete='off' autoCorrect='true' />
+                </Form.Item>
 
-              <FormItem
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    type: "email",
-                    message: "The input is not valid E-mail!",
-                  },
-                ]}
-              >
-                <Input placeholder="Email" />
-              </FormItem>
-              <FormItem
-                name="password"
-                rules={[
-                  { required: true, message: "Please input your Password!" },
-                ]}
-              >
-                <Input type="password" placeholder="Password" />
-              </FormItem>
-              <FormItem name="remember" valuePropName="checked">
+                <Form.Item name="password" hasFeedback rules={[ { required: true } ]}>
+                    <Input.Password placeholder="Password"  autoComplete='new-password' />
+                </Form.Item> 
+                <Form.Item 
+                    name="rePassword" 
+                    dependencies={['password']}
+                    hasFeedback
+                    rules={[
+                        {
+                          required: true,
+                          message: <IntlMessages id="regex.confirmPassword" />,
+                        },
+                        ({ getFieldValue }) => ({
+                          validator(rule, value) {
+                            if (!value || getFieldValue('password') === value) {
+                              return Promise.resolve();
+                            }
+                            return Promise.reject(<IntlMessages id="regex.confirmPassword" />);
+                          },
+                        }),
+                      ]}>
+                    <Input.Password placeholder="Confirm password" />
+                </Form.Item>
+              {/* <FormItem name="remember" valuePropName="checked">
                 <Checkbox>Remember me</Checkbox>
                 <Link
                   className="gx-login-form-forgot"
@@ -120,7 +136,7 @@ const SignUp = (props) => {
                 >
                   Forgot password
                 </Link>
-              </FormItem>
+              </FormItem> */}
               <FormItem>
                 <Button type="primary" className="gx-mb-0" htmlType="submit">
                   <IntlMessages id="app.userAuth.signUp" />
@@ -132,43 +148,6 @@ const SignUp = (props) => {
                   <IntlMessages id="app.userAuth.signIn" />
                 </Link>
               </FormItem>
-              <div className="gx-flex-row gx-justify-content-between">
-                <span>or connect with</span>
-                <ul className="gx-social-link">
-                  <li>
-                    <GoogleOutlined
-                      onClick={() => {
-                        dispatch(showAuthLoader());
-                        dispatch(userGoogleSignIn());
-                      }}
-                    />
-                  </li>
-                  <li>
-                    <FacebookOutlined
-                      onClick={() => {
-                        dispatch(showAuthLoader());
-                        dispatch(userFacebookSignIn());
-                      }}
-                    />
-                  </li>
-                  <li>
-                    <GithubOutlined
-                      onClick={() => {
-                        dispatch(showAuthLoader());
-                        dispatch(userGithubSignIn());
-                      }}
-                    />
-                  </li>
-                  <li>
-                    <TwitterOutlined
-                      onClick={() => {
-                        dispatch(showAuthLoader());
-                        dispatch(userTwitterSignIn());
-                      }}
-                    />
-                  </li>
-                </ul>
-              </div>
             </Form>
           </div>
           {loader && (

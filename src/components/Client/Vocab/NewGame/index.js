@@ -193,7 +193,7 @@ const ReadGame = () => {
                 icon={<SmileOutlined />}
                 status="success"
                 title="Great, we have done all the question!"
-                subTitle={`You has been correct ${numberCorrectAnswer()}/${quizQuestion.length}`}
+                subTitle={`You has been correct ${numberCorrectAnswer()}/${quizQuestion.length * 2}`}
                 extra={[
                     <Button type="primary" key="console" onClick={() => setVisiblePreview(prev => !prev)}>
                         <IntlMessages id="button.preview"/>
